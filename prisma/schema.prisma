@@ -1,0 +1,350 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+  EXPERT
+}
+
+enum PLAN {
+  BASIC
+  PRO
+  PREMIUM
+  FAMILY
+}
+
+model User {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  name           String?
+  email          String?   @unique
+  emailVerified  DateTime?
+  image          Image?
+  hashedPassword String?
+  role           Role      @default(USER)
+  expertise      String?
+  availability   String?
+  rating         Float?
+  price          Float?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  conversationIds String[]       @db.ObjectId
+  conversations   Conversation[] @relation("UserConversations", fields: [conversationIds], references: [id])
+
+  // groupAdminOf    Conversation[]  @relation("GroupAdmins",references: [id]) // Backrelation for being admin of group conversations
+  seenMessageIds String[]  @db.ObjectId
+  seenMessages   Message[] @relation("Seen", fields: [seenMessageIds], references: [id])
+  friendIds      String[]  @db.ObjectId // IDs of friends
+  friendOfIds    String[]  @db.ObjectId // IDs of users who consider this user as a friend
+
+  accounts Account[]
+  messages Message[]
+
+  notificationTokens String[]
+
+  ExpertApplication   ExpertApplication?
+  subscription        Subscription?
+  expertConsultations Consultation[]     @relation("ExpertToConsultation")
+  farmerConsultations Consultation[]     @relation("FarmerToConsultation")
+  appointments        Appointment[]      @relation("UserAppointments")
+  expertAppointments  Appointment[]      @relation("ExpertAppointments")
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Conversation {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt     DateTime @default(now())
+  lastMessageAt DateTime @default(now())
+  name          String?
+  isGroup       Boolean?
+
+  messagesIds String[]  @db.ObjectId
+  messages    Message[]
+
+  userIds String[] @db.ObjectId
+  users   User[]   @relation("UserConversations", fields: [userIds], references: [id])
+
+  // fields for group conversation
+  groupAdminIds String[] @db.ObjectId
+  // groupAdmins   User[]    @relation("GroupAdmins", fields: [groupAdminIds], references: [id])
+}
+
+model Message {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  body      String?
+  image     String[]
+  createdAt DateTime @default(now())
+
+  seenIds String[] @db.ObjectId
+  seen    User[]   @relation("Seen", fields: [seenIds], references: [id])
+
+  conversationId String       @db.ObjectId
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  senderId String @db.ObjectId
+  sender   User   @relation(fields: [senderId], references: [id], onDelete: Cascade)
+}
+
+model ExpertApplication {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @unique @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+  documents String[] // This can be an array of strings for file paths of uploaded documents
+  status    String   @default("pending") // "pending", "verified", "rejected"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Define the Crop model
+model Crop {
+  id                String            @id @default(auto()) @map("_id") @db.ObjectId
+  cropName          String
+  scientificName    String
+  cultivationSeason String
+  images            Image[]
+  wateringSchedule  WateringSchedule? // One-to-One relationship with WateringSchedule
+  diseases          Disease[] // One-to-Many relationship with Disease
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+}
+
+// Watering Schedule model (One-to-One relationship with Crop)
+model WateringSchedule {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  schedule String
+  interval Int // Watering interval in days
+  cropId   String @unique @db.ObjectId
+  crop     Crop   @relation(fields: [cropId], references: [id])
+}
+
+// Define the Disease model
+model Disease {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  diseaseName String
+  season      String
+  symptoms    String
+  preventions String
+  fertilizers String
+  crop        Crop     @relation(fields: [cropId], references: [id])
+  cropId      String   @db.ObjectId
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Appointment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  expertId  String   @db.ObjectId
+  date      DateTime
+  time      DateTime
+  status    String   @default("pending") // Could be "pending", "confirmed", "canceled"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation("UserAppointments", fields: [userId], references: [id])
+  expert    User     @relation("ExpertAppointments", fields: [expertId], references: [id])
+}
+
+model Announcement {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  imageUrl    String?
+  startDate   DateTime
+  endDate     DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Subscription {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String   @unique @db.ObjectId
+  user          User     @relation(fields: [userId], references: [id])
+  plan          String // Example values: 'basic', 'premium'
+  status        String // Example values: 'active', 'canceled', 'expired'
+  startDate     DateTime
+  endDate       DateTime
+  paymentAmount Float // Ensure this field exists
+  paymentId     String // Reference to the payment gateway transaction ID
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// Prisma schema
+model Consultation {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  expertId   String   @db.ObjectId
+  expert     User     @relation("ExpertToConsultation", fields: [expertId], references: [id])
+  farmerId   String   @db.ObjectId
+  farmer     User     @relation("FarmerToConsultation", fields: [farmerId], references: [id])
+  amount     Float
+  commission Float // Commission percentage for admin
+  status     String   @default("ONGOING") // Status can be ONGOING, COMPLETED, EXPIRED, etc.
+  date       DateTime @default(now())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model SubscriptionPlan {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  plan     PLAN     @default(BASIC)
+  features String[] @default(["Expert consultations (1/month)", "Seasonal crop suggestions", "Irrigation alerts"])
+}
+
+//schema for product purchase.
+model Billboard {
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  label      String
+  imageUrl   String
+  categories Category[]
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+}
+
+model Category {
+  id             String          @id @default(auto()) @map("_id") @db.ObjectId
+  billboardId    String          @db.ObjectId
+  billboard      Billboard       @relation(fields: [billboardId], references: [id])
+  name           String
+  products       Product[]       @relation("CategoryToProduct")
+  specifications Specification[] @relation("CategoryToSpecification")
+
+  subCategories SubCategory[] @relation("CategoryToSubCategory")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SubCategory {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  categoryId String    @db.ObjectId
+  category   Category  @relation("CategoryToSubCategory", fields: [categoryId], references: [id])
+  products   Product[] @relation("SubCategoryToProduct")
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Specification {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  values     String[]
+  categoryId String   @db.ObjectId
+  category   Category @relation("CategoryToSpecification", fields: [categoryId], references: [id])
+  // Add this field to establish the opposite relationproductSpecifications ProductSpecification[] @relation("SpecificationToProductSpecification")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Product {
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  categoryId    String       @db.ObjectId
+  category      Category     @relation("CategoryToProduct", fields: [categoryId], references: [id])
+  subCategoryId String?      @db.ObjectId
+  subCategory   SubCategory? @relation("SubCategoryToProduct", fields: [subCategoryId], references: [id])
+
+  productSpecification ProductSpecification[] // Relation to selected specifications
+  name                 String
+  Ratings              Rating[]
+  averageRating        Float                  @default(0.0)
+  detail               String
+  price                Int
+  discount             Int?
+  quantity             Int                    @default(1)
+  stock                Int                    @default(0)
+  isFeatured           Boolean                @default(false)
+  isArchived           Boolean                @default(false)
+  images               Image[]
+  orderItems           OrderItem[]
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+}
+
+model ProductSpecification {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  productId String   @db.ObjectId
+  product   Product  @relation(fields: [productId], references: [id])
+  name      String
+  value     String // The selected value for this specification
+  createdAt DateTime @default(now())
+}
+
+model Order {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  orderItems    OrderItem[]
+  identifier    String
+  paymentMethod String
+  orderTotal    Int         @default(0)
+  isPaid        Boolean     @default(false)
+  paymentStatus String      @default("Pending")
+  orderStatus   String      @default("Not Delivered")
+  fullName      String      @default("")
+  email         String      @default("")
+  phone         String      @default("")
+  address       String      @default("")
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  orderId   String   @db.ObjectId
+  order     Order    @relation(fields: [orderId], references: [id])
+  productId String?  @db.ObjectId
+  product   Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  quantity  Int      @default(1)
+  updatedAt DateTime @updatedAt
+}
+
+model Image {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  productId String?  @db.ObjectId
+  product   Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
+  userId    String?  @unique @db.ObjectId
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cropId    String?  @db.ObjectId
+  crop      Crop?    @relation(fields: [cropId], references: [id], onDelete: Cascade)
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Rating {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  productId String?  @db.ObjectId
+  product   Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
+  rating    Int
+  userEmail String
+  createdAt DateTime @default(now())
+}

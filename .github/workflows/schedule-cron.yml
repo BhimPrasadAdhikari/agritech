@@ -1,0 +1,25 @@
+name: Schedule Cron Jobs for Farmer Notifications
+
+on:
+  schedule:
+    - cron: '0 8 * * *'   # Runs every day at 8:00 AM for watering reminders
+    - cron: '0 9 * * *'   # Runs every day at 9:00 AM for fertilizer suggestions
+
+jobs:
+  send-watering-reminders:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Send Watering Reminder API
+        run: |
+          curl -X POST https://your-vercel-app.vercel.app/api/sendCropReminder \
+          -H "Content-Type: application/json" \
+          -d '{"farmerEmail": "farmer@example.com", "cropName": "Wheat"}'
+
+  send-fertilizer-suggestions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Send Fertilizer Suggestion API
+        run: |
+          curl -X POST https://your-vercel-app.vercel.app/api/sendCropReminder \
+          -H "Content-Type: application/json" \
+          -d '{"farmerEmail": "farmer@example.com", "cropName": "Wheat"}'
