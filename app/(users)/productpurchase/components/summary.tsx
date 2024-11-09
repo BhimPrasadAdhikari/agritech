@@ -13,15 +13,8 @@ import Image from "next/image";
 import { EditIcon } from "lucide-react";
 import useShipingModel from "@/hooks/use-shiping-model";
 import { Product } from "@/types";
-import { useUser as User } from "@clerk/nextjs";
 import useCart from "@/hooks/use-cart";
-interface productDetailsProps {
-  identity: string;
-  name: string;
-  total_price: number;
-  quantity: number;
-  unit_price: number;
-}
+import { useSession } from "next-auth/react";
 interface SummaryProps {
   summaryData: Product[];
 }
@@ -36,8 +29,8 @@ const Summary: React.FC<SummaryProps> = ({ summaryData }) => {
 
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
-  const { user } = User();
-  const email = user?.primaryEmailAddress?.emailAddress;
+  const session = useSession();
+  const email = session.data?.user.email;
   const shipingModel = useShipingModel();
   const { firstName, lastName, phone, address } = useUser(
     (state) => state.info
@@ -60,12 +53,7 @@ const Summary: React.FC<SummaryProps> = ({ summaryData }) => {
         : product.price -
           (product.price - (product.discount * product.price) / 100),
   }));
-
-  // const totalPrice = productDetails.reduce((total, order) => {
-  // const itemTotal = order.total_price
-  // return total + itemTotal;
-  // }, 0);
-  const totalPrice =100;
+  const totalPrice = 100;
   const hmac = createHmac("sha256", "8gBm/:&EnhH.1/q");
   const total_amount = totalPrice + totalPrice * 0.13;
   const transaction_uuid = uuidv4();
@@ -75,7 +63,7 @@ const Summary: React.FC<SummaryProps> = ({ summaryData }) => {
   const signature = data.digest("base64");
   useEffect(() => {
     if (searchParams?.get("status") === "Completed") {
-      setLoading(true)
+      setLoading(true);
       const fetchVerify = async () => {
         try {
           const res = await axios.post(
@@ -94,12 +82,12 @@ const Summary: React.FC<SummaryProps> = ({ summaryData }) => {
               tidx: searchParams?.get("tidx"),
             })
           );
-          console.log("Order Creating",res)
-          if(res.data.success){
-             toast.success("Payment Completed");
+          console.log("Order Creating", res);
+          if (res.data.success) {
+            toast.success("Payment Completed");
             cart.removeAll();
-            setLoading(false)
-           window.location.href= `${res.data.response.url}/orders`
+            setLoading(false);
+            window.location.href = `${res.data.response.url}/orders`;
           }
         } catch (error) {
           console.log("ERROR_PAYMENT_VERIFY_FETCH", error);
@@ -119,7 +107,16 @@ const Summary: React.FC<SummaryProps> = ({ summaryData }) => {
     if (searchParams?.get("status") === "Refunded") {
       toast.error("Payment Refunded");
     }
-  }, [searchParams, fullName, email, address, orderDetails, phone, cart,totalPrice]);
+  }, [
+    searchParams,
+    fullName,
+    email,
+    address,
+    orderDetails,
+    phone,
+    cart,
+    totalPrice,
+  ]);
   const onCheckout = async (paymentMethod: string) => {
     setLoading(true);
 
@@ -164,7 +161,7 @@ const Summary: React.FC<SummaryProps> = ({ summaryData }) => {
       console.log(response.data);
       if (response.data.success) {
         toast.success(response.data.message);
-        window.location.href=response.data.redirect_url
+        window.location.href = response.data.redirect_url;
       } else {
         toast.error(response.data.message);
       }

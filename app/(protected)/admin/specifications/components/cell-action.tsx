@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { SpecificationColumn } from './columns';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useParams, useRouter } from 'next/navigation';
