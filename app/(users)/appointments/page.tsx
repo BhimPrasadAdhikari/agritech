@@ -9,7 +9,7 @@ const AppointmentsPage = async() => {
     <div>
       <h1>Book an Appointment with an Agro Expert</h1>
       {session ? (
-        <AppointmentBooking currentUserId={session.user.id} />
+        <AppointmentBooking  />
       ) : (
         <p>Please log in to book an appointment.</p>
       )}
