@@ -1,6 +1,8 @@
 import { createHmac } from "crypto";
 import { v4 as uuidv4 } from "uuid";
-interface PaymentPageProps {
+const PaymentPage = async ({
+  searchParams,
+}: {
   searchParams: {
     total_amount?: string;
     paymentMethod?: string;
@@ -9,9 +11,7 @@ interface PaymentPageProps {
     purchase_order_name?: string;
     paidFor?: string;
   };
-  fullUrl: string;
-}
-const PaymentPage = async ({ searchParams }: PaymentPageProps) => {
+}) => {
   const total_amount = searchParams.total_amount || "0";
   const paymentMethod = searchParams.paymentMethod;
   const paidFor = searchParams.paidFor;
