@@ -1,6 +1,5 @@
 import { createHmac } from "crypto";
 import { v4 as uuidv4 } from "uuid";
-import { NextPage } from "next";
 interface PaymentPageProps {
   searchParams: {
     total_amount?: string;
@@ -12,7 +11,7 @@ interface PaymentPageProps {
   };
   fullUrl: string;
 }
-const PaymentPage: NextPage<PaymentPageProps> = async ({
+const PaymentPage: React.FC<PaymentPageProps> = async ({
   searchParams,
 }) => {
   const total_amount = searchParams.total_amount || "0";

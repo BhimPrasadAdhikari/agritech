@@ -5,7 +5,7 @@ export default async function ExpertLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) { 
   const session = await getServerSession(authOptions);
   const user = session?.user;
   console.log(user);
