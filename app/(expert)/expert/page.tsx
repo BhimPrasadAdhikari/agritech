@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import Currency from "@/components/ui/currency";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { useSession } from "next-auth/react";
 
 interface ExpertMetrics {
   totalRevenue: number;
@@ -24,11 +25,12 @@ const WavyLoading = () => (
   </div>
 );
 
-const ExpertDashboardPage = ({ expertId }: { expertId: string }) => {
+const ExpertDashboardPage = () => {
   const [metrics, setMetrics] = useState<ExpertMetrics | null>(null);
   const [loading, setLoading] = useState(true);
   const {t}= useTranslation()
-
+  const session= useSession();
+  const expertId = session.data?.user.id
   useEffect(() => {
     const fetchMetrics = async () => {
       try {
