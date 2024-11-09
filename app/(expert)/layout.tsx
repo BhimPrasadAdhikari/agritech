@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import ExpertNavbar from "./components/ExpertNavbar";
+import { authOptions } from "../api/auth/authoptions";
 export default async function ExpertLayout({
   children,
 }: Readonly<{
@@ -8,7 +8,7 @@ export default async function ExpertLayout({
 }>) {
   const session = await getServerSession(authOptions);
   const user = session?.user;
-  console.log(user)
+  console.log(user);
   // Check if the session exists and if the user has the "admin" role
   if (!session || user?.role !== "EXPERT") {
     // If not an admin, return an "Unauthorized" page
@@ -21,10 +21,12 @@ export default async function ExpertLayout({
       </div>
     );
   }
-  return  <>
+  return (
+    <>
       <div>
         <ExpertNavbar />
       </div>
       {children}
     </>
+  );
 }

@@ -129,7 +129,7 @@ import { NextRequest, NextResponse } from "next/server";
 import {pusherServer} from "@/lib/pusher";
 import prismadb from "@/lib/prismadb";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "../auth/authoptions";
 
 export async function POST(req: NextRequest) {
   try {
