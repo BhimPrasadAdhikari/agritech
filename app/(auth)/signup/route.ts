@@ -1,7 +1,0 @@
-// app/api/auth/signup/route.ts
-
-import { NextApiRequest, NextApiResponse } from 'next';
-
-export default async function signup(req: NextApiRequest, res: NextApiResponse) {
-  // await signupHandler(req, res);
-}
