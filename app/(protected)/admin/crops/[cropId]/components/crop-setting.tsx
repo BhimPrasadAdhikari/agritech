@@ -75,7 +75,7 @@ const defaultValues = {
   cultivationSeason: "",
   wateringSchedule: "",
   wateringInterval: "",
-  images: [],
+  images: [{url:''}],
   diseases: [
     {
       diseaseName: "",
