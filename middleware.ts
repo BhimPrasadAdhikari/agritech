@@ -8,5 +8,14 @@ export default withAuth({
 })
 
 export const config = {
-    matcher:["/experts/:path*","/crops/:path*","/diseases/:path*","/chats/:path*","/admin/:path*","/field/:path*"]
-}
+  matcher: [
+    "/experts/:path*",
+    "/crops/:path*",
+    "/diseases/:path*",
+    "/chats/:path*",
+    "/admin/:path*",
+    "/expert/:path*",
+    "/field/:path*",
+    "/consult/:path*",
+    "/predict/:path*"
+  ],}

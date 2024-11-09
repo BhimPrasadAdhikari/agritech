@@ -10,6 +10,7 @@ export function MainNav({
 }: React.HTMLAttributes<HTMLElement>) {
   const pathname = usePathname();
   const routes = [
+    {href:'/', label:'Home'},
     { href: `/admin`, label: 'Overview' },
     {href:`/admin/offer`,label:'Offers'},
     {href:'/admin/announcement',label:'Announcement'},

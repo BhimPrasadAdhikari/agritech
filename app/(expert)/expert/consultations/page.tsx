@@ -2,116 +2,159 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { User, Image as ImageType } from "@prisma/client";
-import { motion } from "framer-motion";
-import { format} from "date-fns";
-import EndConsultationButton from "@/components/EndConsultation";
+import { format } from "date-fns";
+import Image from "next/image";
+
 interface Consultation {
   id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  status: string;
-  expertId: string;
-  amount: number;
   date: Date;
-  farmerId: string;
-  commission: number;
-  expert: User & { image: ImageType | null };
+  status: string;
+  farmer: {
+    name: string | null;
+    email: string | null;
+    image: {
+      url: string;
+    } | null;
+  };
+  expert: {
+    name: string | null;
+    email: string | null;
+    image: {
+      url: string;
+    } | null;
+  };
 }
+
 const ConsultPage = () => {
-  const [consultations, setConsultations] = useState<Consultation[] | null>([]);
+  const [consultations, setConsultations] = useState<Consultation[]>([]);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     async function fetchConsultations() {
       try {
         const response = await axios.get("/api/consult");
         if (response.data.success) {
           setConsultations(response.data.consultations);
-          setLoading(false);
         }
       } catch (error) {
         console.error("CONSULT_FETCH", error);
-        toast.error("something went wrong");
+        toast.error("Something went wrong");
+      } finally {
+        setLoading(false);
       }
     }
     fetchConsultations();
   }, []);
+
+  const handleComplete = async (id: string) => {
+    try {
+      await axios.patch(`/api/consult/${id}`, { status: "completed" });
+      setConsultations((prev) =>
+        prev.map((consult) =>
+          consult.id === id ? { ...consult, status: "completed" } : consult
+        )
+      );
+      toast.success("Consultation marked as completed");
+    } catch {
+      toast.error("Failed to update consultation status");
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    try {
+      await axios.delete(`/api/consult/${id}`);
+      setConsultations((prev) => prev.filter((consult) => consult.id !== id));
+      toast.success("Consultation deleted");
+    } catch {
+      toast.error("Failed to delete consultation");
+    }
+  };
+
   if (loading) {
     return (
-      <>
-        <div className="min-h-screen  py-8">
-          <div className="max-w-4xl mx-auto grid grid-cols-1 gap-6 md:grid-cols-2">
-            {Array(4)
-              .fill(0)
-              .map((_, idx) => (
-                <motion.div
-                  className="bg-white dark:bg-black shadow-lg rounded-lg p-6 w-full h-48 animate-pulse"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5 }}
-                  key={idx}
-                >
-                  <div className="flex items-center mb-4">
-                    <div className="w-16 h-16 rounded-full bg-gray-300 mr-4"></div>
-                    <div className="flex-1">
-                      <div className="h-4 bg-gray-300 rounded w-3/4 mb-2"></div>
-                      <div className="h-3 bg-gray-300 rounded w-1/2"></div>
-                    </div>
-                  </div>
-                  <div className="h-3 bg-gray-300 rounded w-1/2 mb-4"></div>
-                  <div className="h-10 bg-blue-300 rounded w-full"></div>
-                </motion.div>
-              ))}
-          </div>
-        </div>
-      </>
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-xl font-semibold">Loading consultations...</p>
+      </div>
     );
   }
 
   return (
-    <>
-      <div className="min-h-screen py-8">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-bold text-center mb-8">
-            Pending Consultations
-          </h1>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {consultations && consultations.length > 0 ? (
-              consultations.map((consultation) => {
-                const consultationDate = new Date(consultation.date);
-                return (
-                  <motion.div
-                    key={consultation.id}
-                    className="bg-white dark:bg-black shadow-lg rounded-lg p-6 hover:shadow-2xl transition-shadow"
-                    whileHover={{ scale: 1.05 }}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <div className="flex items-center mb-4">
-                      <div>
-                        <h2 className="text-xl font-semibold">
-                          {consultation.expert.name}
-                        </h2>
-                        <p className="text-gray-500">
-                          Consultation Date: {format(consultationDate, "PP")}
-                        </p>
-                      </div>
+    <div className="min-h-screen py-8">
+      <div className="max-w-5xl mx-auto">
+        <h1 className="text-3xl font-bold text-center mb-8">Consultations</h1>
+        <table className="min-w-full bg-white dark:bg-gray-800 rounded-lg shadow-md">
+          <thead>
+            <tr>
+              <th className="py-3 px-4 border-b">User</th>
+              <th className="py-3 px-4 border-b">Date</th>
+              <th className="py-3 px-4 border-b">Time</th>
+              <th className="py-3 px-4 border-b">Status</th>
+              <th className="py-3 px-4 border-b">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {consultations.length > 0 ? (
+              consultations.map((consultation) => (
+                <tr key={consultation.id} className="text-center">
+                  <td className="py-3 px-4 border-b flex items-center justify-center space-x-3">
+                    <div className="relative w-10 h-10 rounded-full">
+                      <Image
+                        src={
+                          consultation.farmer.image?.url ||
+                          "/images/profile.png"
+                        }
+                        fill
+                        alt="User"
+                        className="rounded-full object-cover"
+                      />
                     </div>
 
-                    <EndConsultationButton consultationId={consultation.id}/>
-                  </motion.div>
-                );
-              })
+                    <div>
+                      <p>{consultation.farmer.name}</p>
+                      <p className="text-sm text-gray-500">
+                        {consultation.farmer.email}
+                      </p>
+                    </div>
+                  </td>
+                  <td className="py-3 px-4 border-b">
+                    {format(new Date(consultation.date), "PPP")}
+                  </td>
+                  <td className="py-3 px-4 border-b">
+                    {format(new Date(consultation.date), "p")}
+                  </td>
+                  <td className="py-3 px-4 border-b capitalize">
+                    {consultation.status}
+                  </td>
+                  <td className="py-3 px-4 border-b space-x-3">
+                    {consultation.status.toUpperCase() !== "COMPLETED" && (
+                      <button
+                        onClick={() => handleComplete(consultation.id)}
+                        disabled={consultation.status === "Completed"}
+                        className="px-4 py-2 my-2 bg-green-500 text-white rounded disabled:bg-gray-300"
+                      >
+                        Mark Complete
+                      </button>
+                    )}
+                    <button
+                      onClick={() => handleDelete(consultation.id)}
+                      className="px-4 py-2 bg-red-500 text-white rounded"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
             ) : (
-              <p className="text-center text-gray-500">
-                No pending consultations.
-              </p>
+              <tr>
+                <td colSpan={5} className="py-4 text-center text-gray-500">
+                  No consultations available.
+                </td>
+              </tr>
             )}
-          </div>
-        </div>
+          </tbody>
+        </table>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,50 +1,65 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]/route";
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const conversationId = searchParams.get("conversationId");
-
-  if (!conversationId) {
-    return NextResponse.json({ error: "conversationId is required" }, { status: 400 });
-  }
-
+export async function GET() {
+  const session = await getServerSession(authOptions);
+  const userId = session?.user.id;
   try {
-    const conversation = await prismadb.conversation.findUnique({
+    const conversation = await prismadb.conversation.findMany({
       where: {
-        id: conversationId,
+        userIds:{
+          has:userId
+        }
       },
-      include: {
-        messages: {
-          select: {
-            id: true,
-            body: true,
-            image: true,
-            createdAt: true,
-            seen: {
-              select: {
-                id: true,
-                name: true, // Example additional info
+      select:{
+        id:true,
+        users:{
+          select:{
+            id:true,
+            messages:{
+              select:{
+                id:true,
+                body:true,
+                image:true,
+                createdAt:true,
+                sender:{
+                  select:{
+                    id:true,
+                    name:true,
+                    image:{
+                      select:{
+                        url:true
+                      }
+                    },
+                  }
+                }
+               },
               },
-            },
-            sender: {
-              select: {
-                id: true,
-                name: true,
-                email: true, // Additional sender info if needed
-              },
-            },
+            }
           },
-          orderBy: { createdAt: 'asc' }, // Orders messages by creation time, oldest first
+        createdAt:true,
         },
-      },
-    });
+      }
+    );
 
     if (!conversation) {
       return NextResponse.json({ error: "Conversation not found" }, { status: 404 });
     }
+const formattedConversation = conversation.map(c=>(
+  {
+    id:c.id,
+    createdAt:c.createdAt,
+    users: c.users.map(u=>({
+      ...u,
+      messages:u.messages.filter(m=>m.sender.id !== userId).sort((a,b)=>b.createdAt.getTime()-a.createdAt.getTime())
 
-    return NextResponse.json(conversation.messages);
+    })).filter(u=>u.messages.length>0 )
+  }
+ 
+)).filter(c=>c.users.length>0)
+    return NextResponse.json({conversation:formattedConversation,success:true},{status:200});
   } catch (error) {
     console.error("Error fetching conversation messages:", error);
     return NextResponse.json(

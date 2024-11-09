@@ -14,11 +14,17 @@ const MessageList = ({ messages, currentUserId }:{messages:Message[],currentUser
   return (
     <div className="flex flex-col p-4 bg-green-50 overflow-y-auto h-full">
       {messages.map((message) => (
+        <div
+          key={message.tempId}
+          className={`flex ${message.sender.id === currentUserId ? "justify-end" : "justify-start"}`}
+        >
+
         <MessageItem
           key={message.tempId}
           message={message}
           currentUserId={currentUserId}
         />
+        </div>
       ))}
     </div>
   );

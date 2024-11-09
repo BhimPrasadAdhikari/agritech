@@ -10,9 +10,21 @@ export async function GET(req:Request,
         where:{
             id:params.userId,
         },
-        include:{
-            accounts:true,
-            image:true
+        select:{
+          id:true,
+          name:true,
+          email:true,
+          image:{
+            select:{
+              url:true
+            }
+          },
+          accounts:{
+            select:{
+              id:true,
+              provider:true, 
+            }
+          }
         }
     })
     if(!user){

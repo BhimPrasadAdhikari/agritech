@@ -9,8 +9,6 @@ import axios from "axios";
 import VideoCall from "@/components/VideoCall";
 import Image from "next/image";
 import { Image as ImageType, User } from "@prisma/client";
-
-// Define types for message and message input properties
 interface Message {
   body: string;
   imageUrls: string[] | null;
@@ -19,61 +17,95 @@ interface Message {
   createdAt: Date;
   tempId?: number;
 }
-
 interface ChatWindowProps {
-  conversationId: string;
-  initialMessages: Message[];
+  conversationId: string | null;
   recipientId: string | null;
 }
-
 const ChatWindow: React.FC<ChatWindowProps> = ({
   conversationId,
-  initialMessages,
   recipientId,
 }) => {
-  const [messages, setMessages] = useState<Message[]>(initialMessages);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [pendingMessages, setPendingMessages] = useState<Message[]>([]); // Track pending messages
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [recipient,setRecipient]=useState<User & {image:ImageType | null} | null>(null)
 
   const session = useSession();
-  // Scroll to the bottom when new messages arrive
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
+    setMessages([]);
+    setPendingMessages([]);
     const fetchMessages = async () => {
       if (conversationId) {
         try {
           const response = await axios.get(
-            `/api/conversations?conversationId=${conversationId}`
+            `/api/messages/${conversationId}`
           );
           if (response.statusText === "OK") {
-            console.log("old messages", response);
-            setMessages(response.data);
+            console.log("old messages", response.data.messages);
+            setMessages(response.data.messages.map((m)=>({
+              body:m.body,
+              createdAt:m.createdAt,
+              imageUrls:m.image,
+              sender:{
+                id:m.sender.id,
+                name:m.sender.name
+              }
+            })))
           }
+          
         } catch (error) {
-          console.error("conversation_fetch", error);
+          console.error("messages_fetch", error);
         }
       }
     };
     fetchMessages();
   }, [conversationId]);
-
+  
   useEffect(() => {
     scrollToBottom();
   }, [messages, pendingMessages]);
   useEffect(()=>{
+    setMessages([]);
+    setPendingMessages([]);
     async function fetchRecipientInfo() {
       try{
-        const response = await axios.get(`api/users/${recipientId}`)
+        const response = await axios.get(`/api/users/${recipientId}`)
         if(response.data.success){
+               
           setRecipient(response.data.user);
         }
       }catch(error){console.error("fetchRecipientInfo",error)}
     }
     fetchRecipientInfo();
+
+    const fetchMessages = async () => {
+      if (recipientId) {
+        try {
+          const response = await axios.get(
+            `/api/messages?recipientId=${recipientId}`
+          );
+          if (response.statusText === "OK") {
+            console.log("old messages", response.data.messages);
+            setMessages(response.data.messages.map((m)=>({
+              body:m.body,
+              createdAt:m.createdAt,
+              imageUrls:m.image,
+              sender:{
+                id:m.sender.id,
+                name:m.sender.name
+              }
+            })))
+          }
+        } catch (error) {
+          console.error("messages_fetch", error);
+        }
+      }
+    };
+    fetchMessages();
 
   },[recipientId])
 
@@ -138,8 +170,9 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
         <div className="flex items-center">
         <div className="relative w-16 h-16">
           <Image
-            src={recipient?.image?.url || ""}
+            src={recipient?.image?.url || "/images/profile.png"}
             alt={recipient?.name|| 'profile'}
+
             fill
             className="rounded-full object-cover"
           />

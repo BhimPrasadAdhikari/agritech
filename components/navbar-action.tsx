@@ -16,7 +16,6 @@ import {
 } from "react-icons/fa";
 import { FcAlarmClock } from "react-icons/fc";
 import UserProfileIcon from "./UserProfileIcon";
-// import { ShoppingBag } from "lucide-react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import useExpertChatModel from "@/hooks/use-expertchat-model";
@@ -84,18 +83,18 @@ const NavbarActions = () => {
   }
 
   return (
-    <div className="ml-auto flex items-center relative gap-1">
+    <>
+   <div className="ml-auto flex items-center relative gap-1">
       <div className="relative flex items-center">
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           className="bg-yellow-600 text-white dark:text-black p-1 rounded-full shadow-lg focus:outline-none"
-          onClick={() => window.location.href="/detection"}
+          onClick={() => window.location.href="/predict"}
           onMouseEnter={() => setHovered("detect")}
           onMouseLeave={() => setHovered(null)}
         >
           <FaMicroscope />
-
         </motion.button>
         {hovered === "detect" && (
           <motion.span
@@ -244,8 +243,17 @@ const NavbarActions = () => {
         )}
       </div>
       {/* User Button */}
-      {session?.status === "authenticated" ? <UserProfileIcon />:<Button onClick={()=>signIn()}>Log In</Button>}
+
+      {session?.status === "authenticated" ? <UserProfileIcon />:
+      <div className="flex">
+      <Button onClick={()=>signIn()}>Log In</Button>
+      <Button className='bg-green-500' onClick={()=>router.push('/signin')}>Sign Up</Button>
+
+      </div>
+      }
+
     </div>
+    </>
   );
 };
 

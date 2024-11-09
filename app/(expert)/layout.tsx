@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-export default async function Layout({
+import ExpertNavbar from "./components/ExpertNavbar";
+export default async function ExpertLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -20,5 +21,10 @@ export default async function Layout({
       </div>
     );
   }
-  return <>{children}</>;
+  return  <>
+      <div>
+        <ExpertNavbar />
+      </div>
+      {children}
+    </>
 }

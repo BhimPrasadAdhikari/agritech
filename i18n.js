@@ -16,6 +16,13 @@ const resources = {
       search: 'खोज्नुहोस्',
       crops: 'बाली',
       diseases: 'रोगहरू',
+      greeting: "नमस्ते",
+     'Total Revenue': "कुल राजस्व",
+      'Total Consultations': "कुल परामर्श",
+   'Average Consultation Fee': "औसत परामर्श शुल्क",
+  'Commission': "कमिशन",
+  'Net Revenue': "नेट राजस्व"
+
     }
   },
 };

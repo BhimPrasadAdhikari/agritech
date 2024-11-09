@@ -5,22 +5,28 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import useExpert from "@/hooks/use-expert";
 import { useSession } from "next-auth/react";
-import { User, Image as ImageType } from "@prisma/client";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { format, isToday } from "date-fns";
 import useExpertChatModel from "@/hooks/use-expertchat-model";
 interface Consultation {
   id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  status: string;
-  expertId: string;
-  amount: number;
   date: Date;
-  farmerId: string;
-  commission: number;
-  expert: User & { image: ImageType | null };
+  status: string;
+  farmer: {
+    name: string | null;
+    email: string | null;
+    image: {
+      url: string;
+    } | null;
+  };
+  expert:  {
+    name: string | null;
+    email: string | null;
+    image: {
+      url: string;
+    } | null;
+  };
 }
 const ConsultPage = () => {
   const params = useSearchParams();
@@ -89,7 +95,7 @@ const ConsultPage = () => {
     }
   }, [params, expert, expertStore, router, session.data?.user]);
 
-  const handleConsult = (expert: User) => {
+  const handleConsult = (expert:{ name: string | null; email: string | null; image: { url: string; } | null; }) => {
     const expertName = expert.name || "Expert";
     ExpertChatModel.setExpertName(expertName);
     ExpertChatModel.onOpen();

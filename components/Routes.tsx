@@ -8,15 +8,15 @@ import { Button } from "./ui/Button";
 import { AlignJustify } from "lucide-react";
 
 interface RoutesProps {
-  data: { name: string; Icon: ReactNode }[];
+  data: { name: string; href:string;Icon?: ReactNode}[];
 }
 const Routes: React.FC<RoutesProps> = ({ data }) => {
   const pathname = usePathname();
   const [showDropdown, setShowDropdown] = useState(false);
   const routes = data?.map((route) => ({
-    href: `/${route.name}`,
+    href:route.href,
     label: route.name,
-    active: pathname === `/${route.name}`,
+    active: pathname === route.href,
     Icon: route.Icon,
   }));
   return (

@@ -1,8 +1,7 @@
-// components/Header.tsx
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import SearchBar from "./search-bar"; // Ensure the import path is correct
+import SearchBar from "./search-bar";
 import { ReactNode, useEffect, useState } from "react";
 import Routes from "./Routes";
 import {
@@ -16,36 +15,55 @@ import {
 import Container from "./ui/container";
 import NavbarActions from "./navbar-action";
 import LanguageSwitcher from "./LanguageSwitcher";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
+import { useSession } from "next-auth/react";
 
-// Define type for route items
 type RouteItem = {
   name: string;
-  Icon: ReactNode;
+  Icon?: ReactNode;
+  href: string;
 };
 
 const Header = () => {
-const { t } = useTranslation();
+  const { t } = useTranslation();
   const [routes, setRoutes] = useState<RouteItem[]>([]);
-  const [isSearchOpen, setIsSearchOpen] = useState(false); // State to toggle search bar for small screens
-
-  // useEffect to fetch categories on component mount
+  const session = useSession();
+  const userRole = session.data?.user.role;
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   useEffect(() => {
-    // fetchCategories();
-    setRoutes([
-      { name: "field", Icon: <LandPlotIcon/> },
-      { name: "chats", Icon: <MessageCircle /> },
-      { name: "experts", Icon: <GraduationCap /> },
-      { name: "consult", Icon: <Headphones /> },
-      { name: "diseases", Icon: <Pill /> },
-    ]);
-  }, []); // Empty dependency array means this runs once on mount
+    if (userRole !== "EXPERT" && userRole !=='ADMIN')
+      setRoutes([
+        { name: "field", Icon: <LandPlotIcon />, href: "/field" },
+        { name: "chats", Icon: <MessageCircle />, href: "/chats" },
+        { name: "experts", Icon: <GraduationCap />, href: "/experts" },
+        { name: "consult", Icon: <Headphones />, href: "/consult" },
+        { name: "diseases", Icon: <Pill />, href: "/diseases" },
+      ]);
+    if (userRole === "EXPERT")
+      setRoutes([
+        { name: "Dashboard", href: "/expert" },
+        { name: "field", Icon: <LandPlotIcon />, href: "/field" },
+        { name: "chats", Icon: <MessageCircle />, href: "/chats" },
+        { name: "experts", Icon: <GraduationCap />, href: "/experts" },
+        { name: "consult", Icon: <Headphones />, href: "/consult" },
+        { name: "diseases", Icon: <Pill />, href: "/diseases" },
+      ]);
 
+      if(userRole==='ADMIN')
+        setRoutes([
+          { name: "field", Icon: <LandPlotIcon />, href: "/field" },
+          { name: "chats", Icon: <MessageCircle />, href: "/chats" },
+          { name: "experts", Icon: <GraduationCap />, href: "/experts" },
+          { name: "consult", Icon: <Headphones />, href: "/consult" },
+          { name: "diseases", Icon: <Pill />, href: "/diseases" },
+          { href: `/admin`, name: 'Dashboard' }
+        ]);
+        
+  }, [userRole]);
   return (
     <>
-      <Container >
+      <Container>
         <div className=" flex flex-shrink items-baseline justify-between h-16 px-4 sm:px-6 lg:px-8 pt-3 border-b-2 shadow-md bg-white w-full">
-          {/* Motion for the title with rotating and opacity effect */}
           <Link href="/">
             <motion.h1
               className="text-2xl font-bold mb-4 md:mb-0" // Added margin bottom for small screens
@@ -55,7 +73,7 @@ const { t } = useTranslation();
               exit={{ opacity: 0, y: -20 }} // Animate out on exit
               transition={{ duration: 0.5 }} // Duration for the transition
             >
-              {t('AgriTech')}
+              {t("AgriTech")}
             </motion.h1>
           </Link>
           {/* Mobile menu, show/hide based on menu state */}
@@ -64,9 +82,8 @@ const { t } = useTranslation();
               <Routes data={routes} />
             </div>
           </div>
-          {/* Search Bar for large screens */}
           <div className="hidden lg:flex lg:items-center">
-            <SearchBar /> {/* Pass categories to SearchBar */}
+            <SearchBar />
           </div>
           <div className="lg:hidden  relative mx-1 ">
             <button
@@ -81,9 +98,8 @@ const { t } = useTranslation();
           <div className="hidden lg:flex">
             <Routes data={routes} />
           </div>
-          {/* Navbar actions like cart, login, etc. */}
           <div>
-            <LanguageSwitcher/>
+            <LanguageSwitcher />
           </div>
           <div className="lg:flex hidden md:flex items-center space-x-4">
             <NavbarActions />
@@ -95,12 +111,11 @@ const { t } = useTranslation();
           </div>
         </div>
       </Container>
-      {/* Search bar (handles responsiveness) */}
 
       <div className="flex items-center justify-center">
         {isSearchOpen && (
           <div className="flex items-center justify-center z-0 mt-2 bg-transparent text-black">
-            <SearchBar /> {/* Pass categories to SearchBar */}
+            <SearchBar />
           </div>
         )}
       </div>

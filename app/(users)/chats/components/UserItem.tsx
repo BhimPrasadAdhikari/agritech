@@ -6,7 +6,7 @@ import Image from "next/image";
 import { User, Image as ImageType } from "@prisma/client";
 interface UserItemProps {
   user: User & { image: ImageType | null };
-  onSelectConversation: (conversationId: string,
+  onSelectConversation: (conversationId: string | null,
     recipientId: string) => void;
   addRecipientId: (id: string) => void;
 }
@@ -18,9 +18,9 @@ const UserItem: React.FC<UserItemProps> = ({
   return (
     <motion.div
       whileHover={{ scale: 1.05 }}
-      className="flex items-center p-2 bg-green-200 rounded-md cursor-pointer my-2"
+      className="flex items-center p-2 rounded-md cursor-pointer my-2"
       onClick={() => {
-        onSelectConversation(user.id,user.id); addRecipientId(user.id);
+        onSelectConversation(null,user.id);
       }}
     >
       <div className="relative rounded-full w-10 h-10 mr-3">

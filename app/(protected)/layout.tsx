@@ -30,7 +30,7 @@ export default async function Layout({
   const user = session?.user as SessionUserType;
   console.log(user)
   // Check if the session exists and if the user has the "admin" role
-  if (!session || "ADMIN" !== "ADMIN") {
+  if (!session || user.role !== "ADMIN") {
     // If not an admin, return an "Unauthorized" page
     return (
       <div className="flex h-screen items-center justify-center">

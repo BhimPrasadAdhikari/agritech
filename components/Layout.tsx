@@ -10,7 +10,7 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="flex flex-col min-h-screen dark:bg-black"> {/* Ensure the layout takes up full height */}
+    <div className="flex flex-col bg-white min-h-screen dark:bg-black"> {/* Ensure the layout takes up full height */}
       <motion.main
         initial={{ opacity: 0, scale: 0.95 }} // Start small and transparent
         animate={{ opacity: 1, scale: 1 }} // Animate to full size and opacity

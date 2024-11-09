@@ -1,6 +1,8 @@
 // app/api/appointments/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function POST(request: NextRequest) {
   try {
@@ -26,4 +28,44 @@ export async function POST(request: NextRequest) {
     console.error("Error creating appointment:", error);
     return NextResponse.json({ error: "Failed to create appointment" }, { status: 500 });
   }
+}
+
+export async function GET() { 
+  const session = await getServerSession(authOptions);
+  const appointments = await prismadb.appointment.findMany({
+    where:{
+      expertId:session?.user.id,
+      status:'pending'
+    },
+    select:{
+      id:true,
+      expert:{
+        select:{
+          name:true,
+          image:{
+            select:{
+              url:true
+            }
+          },
+        }
+      },
+      user:{
+        select:{
+          name:true,
+          image:{
+            select:{
+              url:true
+            }
+          },
+          email:true,
+        }
+      },
+      date:true,
+      time:true,
+      status:true,
+      
+    }
+  })
+  return NextResponse.json({appointments:appointments,success:true},{status:200})
+
 }

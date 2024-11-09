@@ -14,7 +14,16 @@ interface MessageType {
   createdAt: Date;
   tempId?: number;
 }
-
+export const formatTimestamp = (timestamp: Date) => {
+  const date = new Date(timestamp);
+  if (isToday(date)) {
+    return format(date, "'Today at' h:mm a");
+  } else if (isYesterday(date)) {
+    return format(date, "'Yesterday at' h:mm a");
+  } else {
+    return format(date, "MMM dd, h:mm a");
+  }
+};
 const MessageItem = ({
   message,
   currentUserId,
@@ -22,22 +31,13 @@ const MessageItem = ({
   message: MessageType;
   currentUserId: string;
 }) => {
-  const isSender = message.sender.id === currentUserId;
+  const isCurrentUser = message.sender.id === currentUserId;
   const isPending = message.isPending;
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const initialVisibleImages = 4;
   const [showAllImages, setShowAllImages] = useState(false);
   console.log(message);
-  const formatTimestamp = (timestamp: Date) => {
-    const date = new Date(timestamp);
-    if (isToday(date)) {
-      return format(date, "'Today at' h:mm a");
-    } else if (isYesterday(date)) {
-      return format(date, "'Yesterday at' h:mm a");
-    } else {
-      return format(date, "MMM dd, h:mm a");
-    }
-  };
+ 
   const toggleShowAllImages = () => {
     setShowAllImages(!showAllImages);
   };
@@ -47,15 +47,15 @@ const MessageItem = ({
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.4 }}
-        className={`flex mb-2 ${isSender ? "justify-end" : "justify-start"}`}
+        className='mb-2'
       >
         <div className="flex flex-col">
           <motion.div
             className={`max-w-xs p-2 rounded-lg shadow-md 
-          ${isSender ? "bg-blue-500 text-white" : "bg-gray-200 text-black"}
+          ${isCurrentUser ? "bg-blue-500 text-white" : "bg-gray-200 text-black"}
         `}
           >
-            {!isSender && (
+            {!isCurrentUser && (
               <p className="text-xs font-semibold">{message.sender.name}</p>
             )}
             <p>{message.body}</p>
@@ -115,7 +115,7 @@ const MessageItem = ({
             <p className="text-xs text-gray-900 mt-1">
               {formatTimestamp(new Date(message.createdAt))}
             </p>
-            {isSender && (
+            {isCurrentUser && (
               <p className="text-xs mt-1">
                 {isPending ? (
                   <span className="text-gray-500">

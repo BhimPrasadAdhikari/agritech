@@ -1,3 +1,4 @@
+
 import prismadb from "@/lib/prismadb"; // Adjust this import based on your project structure
 
 // Get total revenue for a store

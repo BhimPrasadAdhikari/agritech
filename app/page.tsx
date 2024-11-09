@@ -4,9 +4,8 @@ import CropSection from '../components/Crop-section';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import NewsFeed from '@/components/NewsFeed';
-// import PlantDiseasePredictor from '@/components/PlantDiseaseClassifier';
 
-const Home = () => {
+const Home = async() => {
   return (
     <>
     <Header/>

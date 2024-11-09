@@ -128,6 +128,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import {pusherServer} from "@/lib/pusher";
 import prismadb from "@/lib/prismadb";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function POST(req: NextRequest) {
   try {
@@ -232,4 +234,64 @@ export async function POST(req: NextRequest) {
       { status: 500 }
     );
   }
+}
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const recipientId = searchParams.get('recipientId') as string;
+  const session= await getServerSession(authOptions);
+  const senderId = session?.user.id;
+  try{
+    // Find the conversation involving only the two users
+const conversation = await prismadb.conversation.findFirst({
+  where: {
+    AND: [
+      { users: { some: { id: senderId } } },
+      { users: { some: { id: recipientId } } }
+    ]
+  },
+  select: {
+    id: true,
+    messages: {
+      select: {
+        id: true,
+        body: true,
+        image: true,
+        createdAt: true,
+        sender: {
+          select: {
+            id: true,
+            name: true,
+            image: {
+              select: {
+                url: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'asc', // Order messages chronologically
+      },
+    },
+  },
+});
+// Now `conversation.messages` will contain only the messages exchanged between the two users
+
+if (!conversation?.messages || conversation?.messages.length === 0) {
+  return NextResponse.json({ messages:[], success: true }, { status: 200 });
+}
+return NextResponse.json({ messages:conversation?.messages, success: true }, { status: 200 });
+} catch (error) {
+console.error("Error fetching conversation messages:", error);
+return NextResponse.json(
+  { error: "Failed to fetch conversation messages" },
+  { status: 500 }
+);
+}
+
+
+
+
+
+
 }

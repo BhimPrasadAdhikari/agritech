@@ -1,14 +1,10 @@
-
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import I18nProvider from "@/components/I18n-provider";
 import ToastProvider from "@/providers/toast-provider";
-// import Header from "@/components/Header";
-// import Footer from "@/components/Footer";
 import ModalProvider from "@/providers/modal-provider";
 import AuthProvider from "@/providers/auth-provider";
-// import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,7 +26,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
+ 
+   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
