@@ -3,21 +3,6 @@ import { CropColumn } from "./components/columns";
 import { CropClient } from "./components/client";
 
 const ProductsPage = async () => {
-  // const Crops = await prismadb.crop.findMany({
-  //   include: {
-  //     wateringSchedule: true,
-  //     diseases: {
-  //       include:{
-  //           symptoms:true,
-  //           preventions:true,
-  //           fertilizers:true
-  //       }
-  //     },
-  //   },
-  //   orderBy: {
-  //     createdAt: "desc",
-  //   },
-  // });
   const Crops = [
     {
       id: "1",

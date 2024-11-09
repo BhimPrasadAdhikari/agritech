@@ -46,7 +46,15 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
           );
           if (response.statusText === "OK") {
             console.log("old messages", response.data.messages);
-            setMessages(response.data.messages.map((m)=>({
+            setMessages(response.data.messages.map((m:{
+              body:string,
+              createdAt:Date,
+              image:string[];
+              sender:{
+                id:string,
+                name:string
+              }
+            })=>({
               body:m.body,
               createdAt:m.createdAt,
               imageUrls:m.image,
@@ -90,7 +98,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
           );
           if (response.statusText === "OK") {
             console.log("old messages", response.data.messages);
-            setMessages(response.data.messages.map((m)=>({
+            setMessages(response.data.messages.map((m: { body: any; createdAt: any; image: any; sender: { id: any; name: any; }; })=>({
               body:m.body,
               createdAt:m.createdAt,
               imageUrls:m.image,
