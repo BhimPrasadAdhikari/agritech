@@ -9,11 +9,9 @@ interface PaymentPageProps {
     purchase_order_name?: string;
     paidFor?: string;
   };
-  fullUrl?: string;
+  fullUrl: string;
 }
-const PaymentPage: React.FC<PaymentPageProps> = async ({
-  searchParams,
-}) => {
+const PaymentPage = async ({ searchParams }: PaymentPageProps) => {
   const total_amount = searchParams.total_amount || "0";
   const paymentMethod = searchParams.paymentMethod;
   const paidFor = searchParams.paidFor;
