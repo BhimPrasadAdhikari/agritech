@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/authoptions";
+import { authOptions } from "@/components/authoptions";
 
 // POST request to create a new appointment
 export async function POST(request: Request) {

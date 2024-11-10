@@ -1,7 +1,7 @@
 import prismadb from '@/lib/prismadb';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
-import { authOptions } from '../../auth/authoptions';
+import { authOptions } from '../../../../components/authoptions';
 export async function GET(
   req: Request,
   { params }: { params: {subcategoryId: string } }

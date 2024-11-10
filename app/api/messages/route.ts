@@ -3,7 +3,7 @@ import {  NextResponse } from "next/server";
 import {pusherServer} from "@/lib/pusher";
 import prismadb from "@/lib/prismadb";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/authoptions";
+import { authOptions } from "../../../components/authoptions";
 
 export async function POST(req:Request) {
   try {
