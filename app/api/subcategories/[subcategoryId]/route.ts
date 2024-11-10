@@ -1,7 +1,7 @@
 import prismadb from '@/lib/prismadb';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
-import { authOptions } from '../../../../components/authoptions';
+import { authOptions } from '../../auth/[...nextauth]/route';
 type Params = Promise<{subcategoryId:string}>
 export async function GET(
     request: Request, segmentData: { params: Params }

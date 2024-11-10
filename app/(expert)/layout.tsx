@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import ExpertNavbar from "./components/ExpertNavbar";
-import { authOptions } from "../../components/authoptions";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 export default async function ExpertLayout({
   children,
 }: Readonly<{
