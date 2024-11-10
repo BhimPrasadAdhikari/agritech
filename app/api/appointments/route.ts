@@ -1,10 +1,10 @@
 // app/api/appointments/route.ts
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/authoptions";
 
-export async function POST(request: NextRequest) {
+export async function POST(request:Request) {
   try {
     const { userId, expertId, date, time } = await request.json();
 
@@ -30,7 +30,9 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET() { 
+export async function GET(
+  req:Request
+) { 
   const session = await getServerSession(authOptions);
   const appointments = await prismadb.appointment.findMany({
     where:{

@@ -1,8 +1,8 @@
 import prismadb from '@/lib/prismadb';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 // PATCH request to update the status of an appointment
-export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(request: Request, { params }: { params: { id: string } }) {
   const id = params.id;
   const { status } = await request.json();
 
@@ -19,7 +19,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
 }
 
 // DELETE request to remove an appointment
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request:Request, { params }: { params: { id: string } }) {
   const id = params.id;
 
   try {

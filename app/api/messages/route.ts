@@ -1,11 +1,11 @@
 
-import { NextRequest, NextResponse } from "next/server";
+import {  NextResponse } from "next/server";
 import {pusherServer} from "@/lib/pusher";
 import prismadb from "@/lib/prismadb";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/authoptions";
 
-export async function POST(req: NextRequest) {
+export async function POST(req:Request) {
   try {
     const { text, senderId, recipientId, timestamp, imageUrls } = await req.json();
 

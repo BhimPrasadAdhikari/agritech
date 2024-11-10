@@ -1,10 +1,11 @@
 // app/api/image-data/route.ts
 
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import axios from "axios";
 
-export async function GET(req: NextRequest) {
-  const url = req.nextUrl.searchParams.get("url");
+export async function GET(req:Request) {
+  const url = 'www'
+  // req.nextUrl.searchParams.get("url");
 
   if (!url) {
     return NextResponse.json({ error: "Missing required query parameter: url" }, { status: 400 });
