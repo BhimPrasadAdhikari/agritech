@@ -1,24 +1,21 @@
 import prismadb from "@/lib/prismadb";
 import { BillboardForm } from "./components/billboard-setting";
-interface BillboardPageProps {
-  params: { billboardId: string };
-}
 
 const BillboardPage=async(
-    { params
-    }:BillboardPageProps
+    // { params
+    // }:{params:{billboardId:string}}
 )=> {
   try{
-    const billboard=await prismadb.billboard.findUnique(
-       { 
-        where:{
-            id:params.billboardId
-        }
-    }
-    )
+    const billboard= null
+    // await prismadb.billboard.findUnique(
+    //    { 
+    //     where:{
+    //         id:params.billboardId
+    //     }
+    // }
+    // )
     return (
       <div>
-       existing billboard {billboard?.label}
        <BillboardForm initialData={billboard}/>
       </div>
     )
