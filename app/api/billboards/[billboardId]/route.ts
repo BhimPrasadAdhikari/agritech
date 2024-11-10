@@ -1,10 +1,12 @@
 import prismadb from "@/lib/prismadb";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
+type Params = Promise<{ billboardId: string }>
 export async function GET(
-    req:Request,
-   {params}:{params:{billboardId:string}}
+  request: Request, segmentData: { params: Params }
 ){
+  const params = await segmentData.params
+
     try{
         const session = await getServerSession();
     const user = await prismadb.user.findUnique({
@@ -35,9 +37,10 @@ export async function GET(
 }
 
 export async function PATCH(
-    req:Request,
-   {params}:{params:{billboardId:string}}
+  request: Request, segmentData: { params: Params }
+
 ){
+  const params = await segmentData.params
     try{
         const session = await getServerSession();
     const user = await prismadb.user.findUnique({
@@ -50,7 +53,7 @@ export async function PATCH(
     if (!userId) {
       return new NextResponse("unauthorized", { status: 401 });
     }
-        const body=await req.json();
+        const body=await request.json();
         const {label,imageUrl}=body
         if(!userId){
             return new NextResponse("unauthenticated",{status:401})
@@ -82,9 +85,10 @@ export async function PATCH(
 }
 
 export async function DELETE(
-    req:Request,
-   {params}:{params:{billboardId:string}}
+  request: Request, segmentData: { params: Params }
+
 ){
+  const params = await segmentData.params
     try{
         const session = await getServerSession();
         const user = await prismadb.user.findUnique({

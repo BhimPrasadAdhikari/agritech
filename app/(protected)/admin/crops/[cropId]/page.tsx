@@ -1,11 +1,8 @@
 import prismadb from '@/lib/prismadb';
 import CropForm from './components/crop-setting';
 import { isObjectIdOrHexString } from 'mongoose';
-const ProductPage = async ({
-  params,
-}: {
-  params: { cropId: string };
-}) => {
+const CropPage = async (props: { params: Promise<{cropId:string}> })=> {
+   const params = await props.params
   if(isObjectIdOrHexString(params.cropId)){
   const Crop = await prismadb.crop.findUnique({
     where: {
@@ -27,4 +24,4 @@ const ProductPage = async ({
   return <p>not found</p>
 };
 
-export default ProductPage;
+export default CropPage;

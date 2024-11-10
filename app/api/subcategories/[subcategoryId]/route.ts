@@ -2,10 +2,11 @@ import prismadb from '@/lib/prismadb';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 import { authOptions } from '../../../../components/authoptions';
+type Params = Promise<{subcategoryId:string}>
 export async function GET(
-  req: Request,
-  { params }: { params: {subcategoryId: string } }
+    request: Request, segmentData: { params: Params }
 ) {
+  const params= await segmentData.params
   try {
     if (!params.subcategoryId) {
       return new NextResponse('subcategory id is required', { status: 400 });
@@ -24,11 +25,11 @@ export async function GET(
 }
 
 export async function PATCH(
-  req: Request,
-  { params }: { params: {subcategoryId: string } }
-) {
+    request: Request, segmentData: { params: Params }) 
+ {
+  const params= await segmentData.params
   try {
-    const body = await req.json();
+    const body = await request.json();
     const { name, categoryId} = body;
     const session = await getServerSession(authOptions);
     const userId = session?.user.id
@@ -62,9 +63,9 @@ export async function PATCH(
 }
 
 export async function DELETE(
-  req: Request,
-  { params }: { params: { subcategoryId: string } }
+  request: Request, segmentData: { params: Params }
 ) {
+  const params= await segmentData.params
   try {
     const session = await getServerSession(authOptions);
     const userId = session?.user.id

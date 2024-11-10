@@ -1,10 +1,9 @@
 import prismadb from '@/lib/prismadb';
 import { SpecificationForm } from './components/specification-setting';
-const SpecificationPage = async ({
-  params,
-}: {
-  params: {specificationId: string };
+const SpecificationPage = async (props: {
+  params: Promise<{ specificationId: string }>;
 }) => {
+  const params = await props.params;
   const Specification = await prismadb.specification.findUnique({
     where: {
       id: params.specificationId,

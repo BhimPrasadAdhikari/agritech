@@ -2,11 +2,10 @@ import prismadb from "@/lib/prismadb";
 
 import { SubCategoryForm } from "./components/subcategory-setting";
 
-const SubCategoryPage = async ({
-  params,
-}: {
-  params: { subcategoryId: string;};
+const SubCategoryPage = async (props: {
+  params: Promise<{ subcategoryId: string }>;
 }) => {
+  const params = await props.params;
   const subCategory = await prismadb.subCategory.findUnique({
     where: {
       id: params.subcategoryId,

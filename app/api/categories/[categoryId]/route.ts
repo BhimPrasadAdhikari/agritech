@@ -1,11 +1,12 @@
 import prismadb from '@/lib/prismadb';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
+type Params = Promise<{ categoryId: string }>
+
 export async function GET(
-  req: Request,
-  { params }: { params: { categoryId: string } }
-) {
+  request: Request, segmentData: { params: Params }) {
   try {
+    const params= await segmentData.params
    const session = await getServerSession();
    const user = await prismadb.user.findUnique({
      where: {
@@ -38,11 +39,10 @@ if(!params.categoryId){
 }
 
 export async function PATCH(
-  req: Request,
-  { params }: { params: { categoryId: string } }
-) {
+  request: Request, segmentData: { params: Params }) {
   try {
-    const body = await req.json();
+    const params = await segmentData.params
+    const body = await request.json();
     const {name,billboardId} = body;
     const session = await getServerSession();
     const user = await prismadb.user.findUnique({
@@ -79,9 +79,9 @@ export async function PATCH(
 }
 
 export async function DELETE(
-  req: Request,
-  { params }: { params: {categoryId: string } }
-) {
+  request: Request, segmentData: { params: Params }) {
+
+    const params = await segmentData.params
   try {
     const session = await getServerSession();
     const user = await prismadb.user.findUnique({

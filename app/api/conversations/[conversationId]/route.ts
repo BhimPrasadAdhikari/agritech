@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
-
+type Params= Promise<{conversationId:string}>
 export async function GET(
-    req:Request,
-    {params}:{params:{conversationId:string}}
+  request: Request, segmentData: { params: Params }
 ) {
+  const params= await segmentData.params
   try {
     const conversation = await prismadb.conversation.findUnique({
       where: {

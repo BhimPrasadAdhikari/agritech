@@ -2,12 +2,11 @@ import prismadb from '@/lib/prismadb';
 import { getServerSession } from 'next-auth';
 
 import { NextResponse } from 'next/server';
-
+type Params = Promise<{productId:string}>
 export async function GET(
-  req: Request,
-  { params }: { params: {productId: string } }
-) {
+  request: Request, segmentData: { params: Params }) {
   try {
+    const params = await segmentData.params
     const session = await getServerSession();
     const user = await prismadb.user.findUnique({
       where: {
@@ -45,10 +44,9 @@ export async function GET(
 }
 
 export async function PATCH(
-  req: Request,
-  { params }: { params: {productId: string } }
-) {
+  request: Request, segmentData: { params: Params }) {
   try {
+    const params= await segmentData.params
     const session = await getServerSession();
     const user = await prismadb.user.findUnique({
       where: {
@@ -60,7 +58,7 @@ export async function PATCH(
     if (!userId) {
       return new NextResponse("unauthorized", { status: 401 });
     }
-    const body = await req.json();
+    const body = await request.json();
     const {
       name,
       images,
@@ -172,10 +170,9 @@ export async function PATCH(
 }
 
 export async function DELETE(
-  req: Request,
-  { params }: { params: {productId: string } }
-) {
+  request: Request, segmentData: { params: Params }) {
   try {
+    const params= await segmentData.params
     const session = await getServerSession();
     const user = await prismadb.user.findUnique({
       where: {

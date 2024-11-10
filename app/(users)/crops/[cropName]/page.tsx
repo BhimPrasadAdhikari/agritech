@@ -16,7 +16,6 @@ export interface CropPageProps {
     cropName: string;
   };
 }
-
 const CropPage: React.FC<CropPageProps> = ({ params }) => {
   const cropName = params.cropName;
   const crop = data.cropsInfo.find((c) => c.cropName === cropName);
