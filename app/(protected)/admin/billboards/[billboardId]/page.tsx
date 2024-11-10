@@ -2,8 +2,7 @@ import prismadb from "@/lib/prismadb";
 import { BillboardForm } from "./components/billboard-setting";
 
 const BillboardPage=async(
-    { params
-    }:{params:{billboardId:string}}
+    params:{billboardId:string}
 )=> {
   try{
     const billboard=await prismadb.billboard.findUnique(
