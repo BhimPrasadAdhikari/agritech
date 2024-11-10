@@ -44,7 +44,9 @@ export async function POST(request: Request) {
   }
 }
 
-export async function GET(){
+export async function GET(
+  req:Request
+){
 try{
   const announcement =await prismadb.announcement.findMany();
   return NextResponse.json({ success: true, announcement:announcement, message: '' });
