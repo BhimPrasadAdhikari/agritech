@@ -1,6 +1,16 @@
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
+
+
+
+
+export async function GET(){
+  return NextResponse.json({success:true})
+};
+
+
+
 export async function DELETE(
     req: Request,
     { params }: { params: {announcementId: string } }
