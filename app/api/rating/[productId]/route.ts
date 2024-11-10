@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
 import prismadb from '@/lib/prismadb';
+type Params = Promise<{ productId: string }>
 
 export async function GET(
-  req: Request,
-  { params }: 
-  { params: {productId:string } }
+  request: Request, segmentData: { params: Params }
 ) {
+  const params= await segmentData.params
   try { 
     if (!params.productId) {
         return new NextResponse('productId is required', { status: 400 });
@@ -23,11 +23,13 @@ export async function GET(
 }
 
 export async function POST(
-  req: Request,
+  request: Request, segmentData: { params: Params }
 ) {
+  const params= await segmentData.params
+  const{productId}=params
   try {
-    const body = await req.json();
-    const {productId,rating,userEmail} = body.data; // Extract the sizes array from the request body
+    const body = await request.json();
+    const {rating,userEmail} = body.data; // Extract the sizes array from the request body
     if(!productId)
     {
         return new NextResponse('productId  is required', { status: 400 });
