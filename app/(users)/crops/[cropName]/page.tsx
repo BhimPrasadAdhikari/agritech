@@ -10,14 +10,21 @@ import CropDetailFertilizers from "@/components/crop-detail-fertilizers";
 import CropDetailRecommendations from "@/components/crop-detail-recommendations";
 import React from "react";
 import { FaLeaf } from "react-icons/fa"; // Agriculture icon
+import { use } from 'react'
+ 
+type Params = Promise<{ cropName: string }>
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
+ 
+const CropPage= (
+ props:{ params: Params
+  searchParams: SearchParams}
 
-export interface CropPageProps {
-  params: {
-    cropName: string;
-  };
-}
-const CropPage: React.FC<CropPageProps> = ({ params }) => {
-  const cropName = params.cropName;
+) => {
+
+  const params = use(props.params)
+  const searchParams = use(props.searchParams)
+  const cropName = params.cropName
+  const query = searchParams.query
   const crop = data.cropsInfo.find((c) => c.cropName === cropName);
   const diseases = crop?.diseases;
   const fertilizers = crop?.diseases.map((d) => d.fertilizers).flat();
