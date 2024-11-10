@@ -1,17 +1,14 @@
 import { createHmac } from "crypto";
 import { v4 as uuidv4 } from "uuid";
-const PaymentPage = async ({
-  searchParams,
-}: {
-  searchParams: {
-    total_amount?: string;
-    paymentMethod?: string;
-    data?: string;
-    status?: string;
-    purchase_order_name?: string;
-    paidFor?: string;
-  };
-}) => {
+type Params = Promise<{ slug: string }>
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
+const PaymentPage = async (
+  props: {
+    params: Params
+    searchParams: SearchParams
+  }
+) => {
+  const searchParams = await props.searchParams
   const total_amount = searchParams.total_amount || "0";
   const paymentMethod = searchParams.paymentMethod;
   const paidFor = searchParams.paidFor;
