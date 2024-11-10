@@ -2,7 +2,6 @@
 
 "use client";
 
-// import { signIn } from "next-auth/react";
 import AuthForm from "../components/AuthForm";
 import Layout from "@/components/Layout";
 import Header from "@/components/Header";
