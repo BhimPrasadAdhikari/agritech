@@ -29,10 +29,17 @@ return categories;
         console.error("CATEGORY_FETCH",error)
     }
 }
+
+type Params = Promise<{ slug: string }>
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
+
 const StorePage =async(
-    params:{searchParams:{name:string}}
-)=>{
-    console.log(params.searchParams.name)
+    props: {
+        params: Params
+        searchParams: SearchParams
+      })=>{
+  const searchParams = await props.searchParams
+    console.log(searchParams.name) 
     const products = await fetchProducts();
     const categories = await fetchCategories();
 const formattedCategories = categories?.map((category)=>{
