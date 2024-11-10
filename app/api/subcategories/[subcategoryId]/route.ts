@@ -1,7 +1,6 @@
 import prismadb from '@/lib/prismadb';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
-import { authOptions } from '../../auth/[...nextauth]/route';
 type Params = Promise<{subcategoryId:string}>
 export async function GET(
     request: Request, segmentData: { params: Params }
@@ -31,7 +30,7 @@ export async function PATCH(
   try {
     const body = await request.json();
     const { name, categoryId} = body;
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession();
     const userId = session?.user.id
     if (!userId) {
       return new NextResponse('unauthenticated', { status: 401 });
@@ -67,7 +66,7 @@ export async function DELETE(
 ) {
   const params= await segmentData.params
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession();
     const userId = session?.user.id
     if (!userId) {
       return new NextResponse('unauthenticated', { status: 401 });

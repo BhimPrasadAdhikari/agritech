@@ -1,7 +1,6 @@
 import { getServerSession } from "next-auth";
 import Navbar from "./components/Navbar";
 import { Metadata } from "next";
-import { authOptions } from "../api/auth/[...nextauth]/route";
 interface SessionUserType {
   image: string | null;
   name: string | null;
@@ -26,7 +25,7 @@ export default async function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession();
   const user = session?.user as SessionUserType;
   console.log(user)
   // Check if the session exists and if the user has the "admin" role

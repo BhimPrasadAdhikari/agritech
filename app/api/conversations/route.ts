@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function GET() {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession();
   const userId = session?.user.id;
   try {
     const conversation = await prismadb.conversation.findMany({

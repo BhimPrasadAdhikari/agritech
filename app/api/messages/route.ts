@@ -3,7 +3,6 @@ import {  NextResponse } from "next/server";
 import {pusherServer} from "@/lib/pusher";
 import prismadb from "@/lib/prismadb";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function POST(req:Request) {
   try {
@@ -112,7 +111,7 @@ export async function POST(req:Request) {
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const recipientId = searchParams.get('recipientId') as string;
-  const session= await getServerSession(authOptions);
+  const session= await getServerSession();
   const senderId = session?.user.id;
   try{
     // Find the conversation involving only the two users

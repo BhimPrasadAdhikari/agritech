@@ -1,12 +1,11 @@
 import { getServerSession } from "next-auth";
 import ExpertNavbar from "./components/ExpertNavbar";
-import { authOptions } from "../api/auth/[...nextauth]/route";
 export default async function ExpertLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) { 
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession();
   const user = session?.user;
   console.log(user);
   // Check if the session exists and if the user has the "admin" role
