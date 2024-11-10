@@ -17,5 +17,6 @@ export const config = {
     "/expert/:path*",
     "/field/:path*",
     "/consult/:path*",
-    "/predict/:path*"
+    "/predict/:path*",
+    "/api/:path*"
   ],}
