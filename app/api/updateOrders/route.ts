@@ -4,12 +4,8 @@ import { subHours } from 'date-fns';
 
 export async function POST(
     req:Request,
-    {params}:{params:{storeId:string}}
 ) {
   try {
-    if(!params.storeId){
-        return new NextResponse("storeId is required",{status:400})
-       }
     const oneHourAgo = subHours(new Date(), 1);
 
     const updatedOrders = await prismadb.order.updateMany({

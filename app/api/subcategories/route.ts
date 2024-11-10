@@ -49,7 +49,7 @@ export async function GET() {
     const userId = session?.user.id || user?.id;
 
     if (!userId) {
-      return new NextResponse("storeId is required", { status: 400 });
+      return new NextResponse("userId is required", { status: 400 });
     }
 
     const subCategories = await prismadb.category.findMany();

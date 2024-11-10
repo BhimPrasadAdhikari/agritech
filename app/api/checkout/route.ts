@@ -1,6 +1,5 @@
 // import { auth } from "@clerk/nextjs"
 import prismadb from "@/lib/prismadb";
-import { Product } from "@prisma/client";
 import { NextResponse } from "next/server";
 const corsHeaders={
 
@@ -16,9 +15,9 @@ export async function OPTIONS(){
     return NextResponse.json({});
 
 }
-export async function POST(req:Request,{params}:{params:{storeId:string}})
+export async function POST(req:Request,
+  )
   {
-    // const {userId} =auth()
     const {productDetails,details,identifier,paymentMethod}=await req.json();
     const {fullName,email,phone,address}=details;
     const productIds=productDetails.map((product:any)=>product.productId)
@@ -55,8 +54,6 @@ export async function POST(req:Request,{params}:{params:{storeId:string}})
         }});
     const order=await prismadb.order.create({
         data:{
-            // storeID:params.storeId,
-            storeID:products[0].storeID,
             isPaid:false,
             fullName,
             email,

@@ -39,7 +39,6 @@ export async function POST(req: Request) {
 
 export async function GET(
   req: Request,
-  { params }: { params: { storeId: string } }
 ) {
   try {
     const session = await getServerSession();

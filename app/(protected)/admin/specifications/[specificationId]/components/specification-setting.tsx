@@ -112,7 +112,7 @@ export const SpecificationForm: React.FC<SpecificationFormProps> = ({
       setLoading(true);
       axios.delete(`/api/specifications/${params.specificationId}`);
       router.refresh();
-      router.push(`/${params.storeId}/specifications`);
+      router.push(`/specifications`);
       toast.success('Specification deleted');
     } catch (error) {
       toast.error('Something went wrong!');

@@ -3,12 +3,10 @@ import prismadb from '@/lib/prismadb';
 
 export async function GET(
   req: Request,
-  { params }: { params: { storeId: string,productId:string } }
+  { params }: 
+  { params: {productId:string } }
 ) {
   try { 
-    if (!params.storeId) {
-      return new NextResponse('Store id is required', { status: 400 });
-    }
     if (!params.productId) {
         return new NextResponse('productId is required', { status: 400 });
       }
@@ -26,16 +24,10 @@ export async function GET(
 
 export async function POST(
   req: Request,
-  { params }: { params: { storeId: string } }
 ) {
   try {
     const body = await req.json();
-    // Expecting an array of sizes
     const {productId,rating,userEmail} = body.data; // Extract the sizes array from the request body
-    // Validation
-    if (!params.storeId) {
-      return new NextResponse('Store id is required', { status: 400 });
-    }
     if(!productId)
     {
         return new NextResponse('productId  is required', { status: 400 });
