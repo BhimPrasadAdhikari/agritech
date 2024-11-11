@@ -5,8 +5,8 @@ import SubscriptionCard from "./SubscriptionCard";
 import { useState } from "react";
 const SubscriptionPlans = () => {
   const [disabled,setDisabled]= useState(false);
-  const onShowButton=()=>{
-    setDisabled(true);
+  const onShowButton=(value:boolean)=>{
+    setDisabled(value);
   }
   const plans = [
     {

@@ -14,6 +14,7 @@ interface SubscriptionCardProps {
   plan: string;
   price: number;
   buttonText: string;
+  onShowButton:(value:boolean)=>void;
   disable:boolean;
   features: FeatureProps[];
 }
@@ -21,6 +22,7 @@ const SubscriptionCard: React.FC<SubscriptionCardProps> = ({
   plan,
   price,
   features,
+  onShowButton,
   disable,
   buttonText,
 }) => {
@@ -29,6 +31,11 @@ const SubscriptionCard: React.FC<SubscriptionCardProps> = ({
   const subscriptionStore = useSubscription();
   function onClickHandler() {
     setShowButton(true);
+    onShowButton(true);
+  }
+  function onClickCancel(){
+    setShowButton(false)
+    onShowButton(false)
   }
   const total_amount = price || 0;
   const handlePayment = async (paymentMethod: string) => {
@@ -93,7 +100,7 @@ console.log(subscriptionStore.subscription);
       </ul>
       <button
         className={cn(
-          "bg-green-600 text-white dark:text-blackpy-2 px-6 rounded-full hover:bg-green-700",
+          "bg-green-600 text-white dark:text-blackpy-2 px-6 rounded-full hover:bg-green-700 disabled:cursor-not-allowed",
           showButton && "hidden"
         )}
         onClick={onClickHandler}
@@ -254,7 +261,7 @@ console.log(subscriptionStore.subscription);
           </Button>
           <Button 
            className="w-full mt-6 bg-green-200 flex items-center justify-center h-12"
-           onClick={() => setShowButton(false)}
+           onClick={onClickCancel}
            disabled={loading}
           >
             cancel
