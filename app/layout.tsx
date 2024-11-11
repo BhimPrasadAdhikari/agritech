@@ -5,6 +5,7 @@ import I18nProvider from "@/components/I18n-provider";
 import ToastProvider from "@/providers/toast-provider";
 import ModalProvider from "@/providers/modal-provider";
 import AuthProvider from "@/providers/auth-provider";
+import Script from "next/script";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,6 +30,10 @@ export default function RootLayout({
  
    return (
     <html lang="en">
+    <head>
+    <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8909645520086097"
+     crossOrigin="anonymous"></Script>
+    </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
