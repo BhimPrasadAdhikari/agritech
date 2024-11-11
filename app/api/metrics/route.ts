@@ -1,4 +1,6 @@
 // app/api/metrics/route.ts
+export const dynamic = 'force-dynamic'
+
 import { NextResponse } from 'next/server';
 import { calculateMetrics } from '@/components/calculations';
 export async function GET(

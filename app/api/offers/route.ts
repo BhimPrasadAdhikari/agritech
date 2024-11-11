@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import prismadb from '@/lib/prismadb';
 import { mailOffer } from '@/utils/email';
 import { NextResponse } from 'next/server';

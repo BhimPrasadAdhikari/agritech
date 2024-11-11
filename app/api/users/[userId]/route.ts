@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+export const dynamic = 'force-dynamic'
+
 import prismadb from "@/lib/prismadb";
 import {NextResponse } from "next/server";
 type Params = Promise<{userId:string}>

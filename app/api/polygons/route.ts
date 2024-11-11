@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // app/api/polygons/route.ts
+export const dynamic = 'force-static'
 
 import { NextResponse } from "next/server";
 import axios from "axios";

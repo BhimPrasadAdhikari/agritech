@@ -1,4 +1,6 @@
 // app/api/video-call/answer/route.ts
+export const dynamic = 'force-dynamic'
+
 import { NextResponse } from 'next/server';
 import { pusherServer } from '@/lib/pusher';
 

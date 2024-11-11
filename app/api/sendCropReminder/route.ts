@@ -1,4 +1,6 @@
 // app/api/sendCropReminder/route.ts
+export const dynamic = 'force-dynamic'
+
 import { NextResponse } from 'next/server';
 import { sendCropReminder } from '@/utils/email';
 import data from '@/utils/data'; // Import your crop data

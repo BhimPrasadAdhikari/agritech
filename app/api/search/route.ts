@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 export async function GET(req: Request) {

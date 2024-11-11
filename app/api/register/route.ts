@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import prismadb from '@/lib/prismadb';
 import bcrypt from 'bcrypt'
 import { NextResponse } from 'next/server';

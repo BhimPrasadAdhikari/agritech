@@ -1,4 +1,4 @@
-export const dynamic = 'force-static'
+export const dynamic = 'force-dynamic'
 import { NextResponse } from 'next/server';
 import prismadb from '@/lib/prismadb'; // Adjust the import based on your Prisma setup
 
