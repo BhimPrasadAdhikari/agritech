@@ -1,6 +1,7 @@
 // app/appointments/page.tsx
 import { getServerSession } from "next-auth";
 import AppointmentBooking from "./components/AppointmentBooking";
+import { authOptions } from "@/authOptions";
 
 const AppointmentsPage = async() => {
   const session =await getServerSession(authOptions);

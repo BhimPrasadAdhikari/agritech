@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { getServerSession } from "next-auth";
+import { authOptions } from "@/authOptions";
 export async function POST(req: Request) {
   const purchase_order_id = uuidv4();
   const session = await getServerSession(authOptions);

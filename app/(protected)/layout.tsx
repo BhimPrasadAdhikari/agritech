@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth";
 import Navbar from "./components/Navbar";
 import { Metadata } from "next";
+import { authOptions } from "@/authOptions";
 interface SessionUserType {
   image: string | null;
   name: string | null;
