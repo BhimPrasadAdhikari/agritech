@@ -16,9 +16,8 @@ const UserProfileIcon = () => {
   useEffect(()=>{
     async function fetchUser() {
       try{
-      axios.get(`/api/users/${session?.user.id}`).then(res=>{
-        console.log(res)
-        if (res.statusText==='OK'){
+     await axios.get(`/api/users/${session?.user.id}`).then(res=>{
+        if (res.data.success){
           if(res.data.user.image){
         setUrl(res.data.user.image.url)}}}
       )}catch(error){

@@ -14,7 +14,6 @@ interface SubscriptionCardProps {
   plan: string;
   price: number;
   buttonText: string;
-  onShowButton:()=>void;
   disable:boolean;
   features: FeatureProps[];
 }
@@ -22,7 +21,6 @@ const SubscriptionCard: React.FC<SubscriptionCardProps> = ({
   plan,
   price,
   features,
-  onShowButton,
   disable,
   buttonText,
 }) => {
@@ -31,7 +29,6 @@ const SubscriptionCard: React.FC<SubscriptionCardProps> = ({
   const subscriptionStore = useSubscription();
   function onClickHandler() {
     setShowButton(true);
-    onShowButton();
   }
   const total_amount = price || 0;
   const handlePayment = async (paymentMethod: string) => {
@@ -54,7 +51,7 @@ const SubscriptionCard: React.FC<SubscriptionCardProps> = ({
     }
     if (paymentMethod !== "esewa") {
       try {
-        const response = await axios.post("api/payment", {
+        const response = await axios.post("/api/payment", {
           paymentMethod,
           amount: total_amount,
           purchase_order_name: "subscription",
@@ -238,7 +235,7 @@ console.log(subscriptionStore.subscription);
             )}
           </Button>
           <Button
-            className="w-full mt-6 bg-green-200 flex items-center justify-center h-12"
+            className="w-full mt-6 bg-green-400 flex items-center justify-center h-12"
             onClick={() => handlePayment("esewa")}
             disabled={loading}
 
@@ -254,6 +251,13 @@ console.log(subscriptionStore.subscription);
                 alt="eSewa logo"
               />
             )}
+          </Button>
+          <Button 
+           className="w-full mt-6 bg-green-200 flex items-center justify-center h-12"
+           onClick={() => setShowButton(false)}
+           disabled={loading}
+          >
+            cancel
           </Button>
         </div>
       )}

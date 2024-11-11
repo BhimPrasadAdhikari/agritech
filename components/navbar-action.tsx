@@ -51,14 +51,8 @@ const NavbarActions = () => {
   }
   const handleSchedule = async () => {
     setLoading(true);
-    const url = qs.stringifyUrl({
-      url: "api/subscription",
-      query: {
-        email: session.data?.user?.email,
-      },
-    });
     try {
-      const response = await axios.get(url);
+      const response = await axios.get('/api/subscription');
       console.log(response);
       if (response.data.success) {
         const subscription = response.data.subscription;
@@ -246,7 +240,7 @@ const NavbarActions = () => {
 
       {session?.status === "authenticated" ? <UserProfileIcon />:
       <div className="flex">
-      <Button onClick={()=>signIn()}>Log In</Button>
+      <Button onClick={()=>router.push('/signin')}>Log In</Button>
       <Button className='bg-green-500' onClick={()=>router.push('/signin')}>Sign Up</Button>
 
       </div>

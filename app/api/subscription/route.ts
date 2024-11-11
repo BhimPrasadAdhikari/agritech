@@ -52,12 +52,10 @@ export async function POST(request: Request) {
 }
 export async function GET(req: Request) {
   try {
-    const { searchParams } = new URL(req.url);
-    const email = searchParams.get("email") || undefined;
     const session = await getServerSession(authOptions);
     const user = await prismadb.user.findUnique({
       where: {
-        email: email,
+        email: session?.user.email as string,
       },
     });
     const userId = (session?.user?.id as string) || user?.id;
