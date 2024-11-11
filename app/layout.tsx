@@ -6,6 +6,7 @@ import ToastProvider from "@/providers/toast-provider";
 import ModalProvider from "@/providers/modal-provider";
 import AuthProvider from "@/providers/auth-provider";
 import Script from "next/script";
+import GoogleAd from "@/components/GoogleAd";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,13 +32,13 @@ export default function RootLayout({
    return (
     <html lang="en">
     <head>
-    <Script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.GOOGLE_AD_CLIENT_ID}`}
+    <Script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_AD_CLIENT_ID}`}
      crossOrigin="anonymous"></Script>
     </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-         
+         <GoogleAd slotId="4996603043"/>
         <AuthProvider>
         <ModalProvider />
         <I18nProvider>
