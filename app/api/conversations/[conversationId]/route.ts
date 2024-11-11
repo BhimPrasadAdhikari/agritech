@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 type Params= Promise<{conversationId:string}>

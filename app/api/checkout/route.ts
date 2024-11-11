@@ -1,4 +1,5 @@
-// import { auth } from "@clerk/nextjs"
+export const dynamic = 'force-dynamic'
+
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 const corsHeaders={

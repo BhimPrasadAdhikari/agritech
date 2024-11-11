@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+export const dynamic = 'force-dynamic'
+
 import { NextResponse } from 'next/server';
 import prismadb from '@/lib/prismadb';
 import { getServerSession } from 'next-auth';

@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { NextResponse } from 'next/server';
 import { calculateExpertMetrics } from './components/consultationMetrics';
 // import { cache } from 'some-caching-lib'; // Use appropriate caching library if needed
