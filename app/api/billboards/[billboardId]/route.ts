@@ -1,6 +1,7 @@
 import prismadb from "@/lib/prismadb";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
+import { authOptions } from "../../auth/[...nextauth]";
 type Params = Promise<{ billboardId: string }>
 export async function GET(
   request: Request, segmentData: { params: Params }
@@ -8,7 +9,7 @@ export async function GET(
   const params = await segmentData.params
 
     try{
-        const session = await getServerSession();
+        const session = await getServerSession(authOptions);
     const user = await prismadb.user.findUnique({
       where: {
         email: session?.user.email as string,
