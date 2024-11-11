@@ -90,7 +90,7 @@ const NavbarActions = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           className="bg-yellow-600 text-white dark:text-black p-1 rounded-full shadow-lg focus:outline-none"
-          onClick={() => window.location.href="/predict"}
+          onClick={() => router.push("/predict")}
           onMouseEnter={() => setHovered("detect")}
           onMouseLeave={() => setHovered(null)}
         >
@@ -113,7 +113,7 @@ const NavbarActions = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           className="bg-green-600 text-white dark:text-black p-1 rounded-full shadow-lg focus:outline-none"
-          onClick={() => window.location.href='/appointments'}
+          onClick={() => router.push('/appointments')}
           onMouseEnter={() => setHovered("appointment")}
           onMouseLeave={() => setHovered(null)}
         >
@@ -216,7 +216,7 @@ const NavbarActions = () => {
       </div>
       <div className="relative">
       <motion.button
-          onClick={() => window.location.href="store/wish"}
+          onClick={() => router.push("/store/wishlist")}
           className="bg-black flex items-center p-1 rounded-full shadow-lg focus:outline-none disabled:cursor-not-allowed"
         >
           <FaHeart color="red" />
@@ -231,7 +231,7 @@ const NavbarActions = () => {
       {/* Cart Button */}
       <div className="relative">
         <motion.button
-          onClick={() => window.location.href="store/cart"}
+          onClick={() => router.push("/store/cart")}
           className="bg-black flex items-center p-1 rounded-full shadow-lg focus:outline-none disabled:cursor-not-allowed"
         >
           <FaShoppingBasket color="yellow" />

@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   try {
     const { plan, paymentId, paymentAmount } = await request.json();
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     const user = await prismadb.user.findUnique({
       where: {
         email: session?.user.email as string,
@@ -53,7 +53,7 @@ export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const email = searchParams.get("email") || undefined;
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     const user = await prismadb.user.findUnique({
       where: {
         email: email,

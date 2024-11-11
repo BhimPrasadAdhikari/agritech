@@ -5,7 +5,7 @@ import prismadb from "@/lib/prismadb";
 import { getServerSession } from "next-auth";
 
 export async function GET() {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   const userId = session?.user.id;
   try {
     const conversation = await prismadb.conversation.findMany({

@@ -6,7 +6,7 @@ import { getServerSession } from "next-auth";
 
 export async function POST(req: Request) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     const user = await prismadb.user.findUnique({
       where: {
         email: session?.user.email as string,
@@ -42,7 +42,7 @@ export async function POST(req: Request) {
 
 export async function GET() {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     const user = await prismadb.user.findUnique({
       where: {
         email: session?.user.email as string,

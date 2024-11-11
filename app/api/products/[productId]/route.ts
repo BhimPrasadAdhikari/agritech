@@ -8,7 +8,7 @@ export async function GET(
   request: Request, segmentData: { params: Params }) {
   try {
     const params = await segmentData.params
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     const user = await prismadb.user.findUnique({
       where: {
         email: session?.user.email as string,
@@ -48,7 +48,7 @@ export async function PATCH(
   request: Request, segmentData: { params: Params }) {
   try {
     const params= await segmentData.params
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     const user = await prismadb.user.findUnique({
       where: {
         email: session?.user.email as string,
@@ -174,7 +174,7 @@ export async function DELETE(
   request: Request, segmentData: { params: Params }) {
   try {
     const params= await segmentData.params
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     const user = await prismadb.user.findUnique({
       where: {
         email: session?.user.email as string,

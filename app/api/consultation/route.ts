@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     const {expertId,farmerId,consultationId } = body;
 
     // Get the current authenticated user (expert)
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     if (!session?.user) {
       return NextResponse.json({ message: 'Unauthorized' }, { status: 403 });
     }
@@ -51,7 +51,7 @@ export async function DELETE(req: Request) {
     const {expertId,farmerId,consultationId } = body;
 
     // Get the current authenticated user (expert)
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     if (!session?.user) {
       return NextResponse.json({ message: 'Unauthorized' }, { status: 403 });
     }

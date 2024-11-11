@@ -8,7 +8,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const { label, imageUrl } = body;
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     const user = await prismadb.user.findUnique({
       where: {
         email: session?.user.email as string,
@@ -43,7 +43,7 @@ export async function GET(
   req: Request,
 ) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     const user = await prismadb.user.findUnique({
       where: {
         email: session?.user.email as string,

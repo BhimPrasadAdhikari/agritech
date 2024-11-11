@@ -32,7 +32,7 @@ export async function PATCH(
   try {
     const body = await request.json();
     const { name, categoryId} = body;
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     const userId = session?.user.id
     if (!userId) {
       return new NextResponse('unauthenticated', { status: 401 });
@@ -68,7 +68,7 @@ export async function DELETE(
 ) {
   const params= await segmentData.params
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     const userId = session?.user.id
     if (!userId) {
       return new NextResponse('unauthenticated', { status: 401 });

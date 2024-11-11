@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import AppointmentBooking from "./components/AppointmentBooking";
 
 const AppointmentsPage = async() => {
-  const session =await getServerSession();
+  const session =await getServerSession(authOptions);
 
   return (
     <div>

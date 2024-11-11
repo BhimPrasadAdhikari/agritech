@@ -39,7 +39,7 @@ export async function POST(req: Request) {
 
 export async function GET(req:Request) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     const farmerId = session?.user.id;
     const consultations = await prismadb.consultation.findMany({
       where: {

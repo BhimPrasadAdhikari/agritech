@@ -6,7 +6,7 @@ import axios from "axios";
 import { getServerSession } from "next-auth";
 export async function POST(req: Request) {
   const purchase_order_id = uuidv4();
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   try {
     const { paymentMethod, amount, purchase_order_name, paidFor} =
       await req.json();

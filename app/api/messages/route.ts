@@ -112,7 +112,7 @@ export async function POST(req:Request) {
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const recipientId = searchParams.get('recipientId') as string;
-  const session= await getServerSession();
+  const session= await getServerSession(authOptions);
   const senderId = session?.user.id;
   try{
     // Find the conversation involving only the two users
