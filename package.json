@@ -50,7 +50,7 @@
     "mongodb": "^3.7.4",
     "mongoose": "^8.7.2",
     "next": "^15.0.3",
-    "next-auth": "^4.24.10",
+    "next-auth": "^5.0.0-beta.25",
     "next-cloudinary": "^6.15.0",
     "next-i18next": "^15.3.1",
     "next-theme": "^0.1.5",
