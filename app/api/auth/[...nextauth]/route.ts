@@ -1,6 +1,13 @@
-import { authOptions } from "@/authOptions";
 import NextAuth from "next-auth";
+import { authOptions } from "@/authOptions";
+import { NextApiRequest, NextApiResponse } from "next";
 
-const handler = NextAuth(authOptions);
+// Handle GET requests
+export async function GET(req:NextApiRequest,res:NextApiResponse) {
+  return NextAuth(req,res,authOptions);
+}
 
-export const {GET, POST}= handler;
+// Handle POST requests
+export async function POST(req:NextApiRequest,res:NextApiResponse) {
+    return NextAuth(req,res,authOptions);
+}
