@@ -1,6 +1,6 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter} from "next/navigation";
+import { use, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import useSubscription from "@/hooks/use-subscription";
@@ -19,8 +19,11 @@ interface Subscription {
   paymentAmount: number;
   paymentId: string;
 }
-const SubscriptionPage = () => {
-  const params = useSearchParams();
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
+
+const SubscriptionPage = (props:{searchParams:SearchParams}) => {
+  const searchParams = use(props.searchParams);
+  const{data,status,transaction_id}= searchParams;
   const router = useRouter();
   const subscriptionStore = useSubscription();
   const [subscription, setSubscription] = useState<Subscription | null>(null);
@@ -42,19 +45,19 @@ const SubscriptionPage = () => {
     fetchSubscription();
   }, []);
   useEffect(() => {
-    const base64String = params.get("data") as string;
+    const base64String = data as string;
     const decodedData = base64String
       ? Buffer.from(base64String, "base64").toString("utf-8")
       : null;
     const parsedData = decodedData ? JSON.parse(decodedData) : null;
 
-    const status = params.get("status")?.toUpperCase() || parsedData?.status;
-    const total_amount = storedSubscription ? storedSubscription.price : 0;
-    const transaction_id =
-      params.get("transaction_id") || parsedData?.transaction_uuid;
+    const paymentStatus = (status as string).toUpperCase() || parsedData?.status;
+    const totalAmount = storedSubscription ? storedSubscription.price : 0;
+    const transactionId =
+    transaction_id || parsedData?.transaction_uuid;
 
     // Check if the status is 'COMPLETED'
-    if (status === "COMPLETED" || status === "COMPLETE") {
+    if (paymentStatus === "COMPLETED" || paymentStatus === "COMPLETE") {
       // Check if the request has already been made
       const hasRequested = sessionStorage.getItem("hasRequested");
       if (!hasRequested) {
@@ -63,8 +66,8 @@ const SubscriptionPage = () => {
         //  POST request
         const postData = {
           plan: storedSubscription?.plan,
-          paymentAmount: total_amount,
-          paymentId: transaction_id,
+          paymentAmount: totalAmount,
+          paymentId: transactionId,
         };
         axios
           .post("/api/subscription", postData)
@@ -84,7 +87,7 @@ const SubscriptionPage = () => {
         router.push("/subscription")
       }
     }
-  }, [params,subscriptionStore,storedSubscription,router]);
+  }, [data, router, status, storedSubscription, subscriptionStore,transaction_id]);
 
   const handleRenewNow =()=>{
     alert('renew')

@@ -1,6 +1,6 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import useExpert from "@/hooks/use-expert";
@@ -28,9 +28,11 @@ interface Consultation {
     } | null;
   };
 };
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
 
-const ConsultPage = () => {
-  const params = useSearchParams();
+const ConsultPage = (props:{searchParams:SearchParams}) => {
+  const searchParams = use(props.searchParams);
+  const{data,status}= searchParams;
   const router = useRouter();
   const session = useSession();
   const expertStore = useExpert();
@@ -54,18 +56,18 @@ const ConsultPage = () => {
     fetchConsultations();
   }, []);
   useEffect(() => {
-    const base64String = params.get("data") as string;
+    const base64String = data as string;
 
     const decodedData = base64String
       ? Buffer.from(base64String, "base64").toString("utf-8")
       : null;
     const parsedData = decodedData ? JSON.parse(decodedData) : null;
 
-    const status = params.get("status")?.toUpperCase();
+    const paymentStatus = (status as string )?.toUpperCase();
     const total_amount = expert ? expert.price : 0;
 
     // Check if the status is 'COMPLETED'
-    if (status === "COMPLETED" || parsedData?.status === "COMPLETE") {
+    if (paymentStatus === "COMPLETED" || parsedData?.status === "COMPLETE") {
       // Check if the request has already been made
       const hasRequested = sessionStorage.getItem("hasRequested");
       if (!hasRequested) {
@@ -94,7 +96,7 @@ const ConsultPage = () => {
           });
       }
     }
-  }, [params, expert, expertStore, router, session.data?.user]);
+  }, [data,status, expert, expertStore, router, session.data?.user]);
 
   const handleConsult = (expert:{ name: string | null; email: string | null; image: { url: string; } | null; }) => {
     const expertName = expert.name || "Expert";
