@@ -30,9 +30,9 @@ export async function GET(
 }
 
 export async function DELETE(
-  req: Request,
-  { params }: { params: { announcementId: string } }
-) {
+  request: Request, segmentData: { params: Params }
+){
+  const params = await segmentData.params
   try {
     const announcement = await prismadb.announcement.delete({
       where: {
