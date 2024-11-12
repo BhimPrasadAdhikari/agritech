@@ -31,11 +31,14 @@ export default function RootLayout({
  
    return (
     <html lang="en">
+      <head>
+      <script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_AD_CLIENT_ID}`}
+     crossOrigin="anonymous"></script>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-         <script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_AD_CLIENT_ID}`}
-     crossOrigin="anonymous"></script>
+       
          {/* <GoogleAd slotId="4996603043"/> */}
         <AuthProvider>
         <ModalProvider />
