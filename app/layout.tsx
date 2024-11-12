@@ -36,7 +36,7 @@ export default function RootLayout({
       >
          <script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_AD_CLIENT_ID}`}
      crossOrigin="anonymous"></script>
-         <GoogleAd slotId="4996603043"/>
+         {/* <GoogleAd slotId="4996603043"/> */}
         <AuthProvider>
         <ModalProvider />
         <I18nProvider>
