@@ -39,7 +39,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
        
-         {/* <GoogleAd slotId="4996603043"/> */}
+         <GoogleAd
+          // slotId="4996603043"
+          />
         <AuthProvider>
         <ModalProvider />
         <I18nProvider>
