@@ -3,12 +3,28 @@ import torch
 from torchvision import transforms
 from PIL import Image
 from flask_cors import CORS
+import os
+import requests
 
 # Initialize Flask app
 app = Flask(__name__)
 
+# Model file configuration
+MODEL_URL = "https://github.com/BhimPrasadAdhikari/agritech/releases/download/v1.0.0/model_scripted.pt"
+MODEL_PATH = "model_scripted.pt"
+
+# Download the model if it's not already available
+if not os.path.exists(MODEL_PATH):
+    print("Downloading model...")
+    response = requests.get(MODEL_URL, stream=True)
+    with open(MODEL_PATH, "wb") as model_file:
+        for chunk in response.iter_content(chunk_size=1024):
+            if chunk:
+                model_file.write(chunk)
+    print("Model downloaded successfully!")
+
 # Load your TorchScript model
-model = torch.jit.load('model_scripted.pt')
+model = torch.jit.load(MODEL_PATH)
 model.eval()
 
 # Image transformations (match your training setup)
@@ -36,7 +52,9 @@ def predict():
     predicted_class = class_names[predicted.item()]
 
     return jsonify({"predicted_class": predicted_class})
+
 CORS(app)  # Allow all domains, or specify the domain of your Next.js app
+
 # Run the Flask app
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)  # Make sure Flask runs on port 5000
