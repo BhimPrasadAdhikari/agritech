@@ -57,4 +57,4 @@ CORS(app)  # Allow all domains, or specify the domain of your Next.js app
 
 # Run the Flask app
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)  # Make sure Flask runs on port 5000
+    app.run()  # Make sure Flask runs on port 5000
