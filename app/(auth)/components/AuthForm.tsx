@@ -193,7 +193,7 @@ const AuthForm = () => {
                   <Button
                     type="submit"
                     variant="default"
-                    className="bg-green-600 text-white dark:text-blackhover:bg-green-500"
+                    className="bg-green-600 text-white hover:bg-green-500"
                     disabled={isLoading} // Disable button when loading
                   >
                     {variant === "LOGIN" ? "Sign in" : "Register"}
