@@ -34,7 +34,7 @@ export function MainNav({ className }: React.HTMLAttributes<HTMLElement>) {
               className={cn(
                 "text-sm font-medium px-3 py-1 rounded-lg transition-colors",
                 isActive
-                  ? "text-yellow-300 font-bold dark:text-white"
+                  ? "text-yellow-300 font-bold "
                   : "text-muted-foreground"
               )}
             >

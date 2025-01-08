@@ -55,7 +55,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   return (
     <div
       onClick={onClickHandler}
-      className="bg-white dark:bg-black group cursor-pointer rounded-xl border p-3 space-y-4"
+      className="bg-white      group cursor-pointer rounded-xl border p-3 space-y-4"
     >
       <div className="aspect-square rounded-xl relative overflow-hidden">
         {/* Image Loading Effect */}
@@ -82,7 +82,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
         <IconButton
           onClick={onAddToWish}
           icon={
-            <HeartIcon size={15} className="text-grey-600 dark:text-black" />
+            <HeartIcon size={15} className="text-grey-600     " />
           }
           className="absolute top-0 group-hover:opacity-100"
         />
@@ -91,7 +91,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
             <IconButton
               onClick={onPreview}
               icon={
-                <Expand size={15} className="text-grey-600 dark:text-black" />
+                <Expand size={15} className="text-grey-600     " />
               }
               className=""
             />
@@ -100,7 +100,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
               icon={
                 <ShoppingCart
                   size={15}
-                  className="text-grey-600 dark:text-black"
+                  className="text-grey-600     "
                 />
               }
               className=""

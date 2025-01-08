@@ -29,10 +29,10 @@ const Modal: React.FC<ModelProps> = ({ open, onClose, children }) => {
               leaveTo="opacity-0 scale-95"
             >
               <DialogPanel className="w-full overflow-hidden max-w-3xl rounded-lg text-left align-middle">
-                <div className="relative flex w-full items-center overflow-hidden bg-white  dark:bg-black px-4 pb-0 pt-14 shadow-xl sm:px-6 md:p-6 lg:p-8">
+                <div className="relative flex w-full items-center overflow-hidden bg-white       px-4 pb-0 pt-14 shadow-xl sm:px-6 md:p-6 lg:p-8">
                   <div className="absolute right-4 top-4 z-50">
                     <IconButton
-                      className="dark:bg-black"
+                      className="    "
                       onClick={onClose}
                       icon={<X size={15} />}
                     />

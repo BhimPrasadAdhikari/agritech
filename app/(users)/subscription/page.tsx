@@ -102,7 +102,7 @@ const SubscriptionPage = (props:{searchParams:SearchParams}) => {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {subscription ? (
             <motion.div
-              className="bg-white dark:bg-black shadow-lg rounded-lg p-6 hover:shadow-2xl transition-shadow"
+              className="bg-white      shadow-lg rounded-lg p-6 hover:shadow-2xl transition-shadow"
               whileHover={{ scale: 1.05 }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -121,7 +121,7 @@ const SubscriptionPage = (props:{searchParams:SearchParams}) => {
                 <motion.button
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handleRenewNow()}
-                  className="mt-4 w-full bg-blue-500 text-white dark:text-blackpy-2 rounded-lg hover:bg-blue-600 transition-colors"
+                  className="mt-4 w-full bg-blue-500 text-white     py-2 rounded-lg hover:bg-blue-600 transition-colors"
                 >
                   Renew now
                 </motion.button>

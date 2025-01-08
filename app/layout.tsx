@@ -7,6 +7,7 @@ import ModalProvider from "@/providers/modal-provider";
 import AuthProvider from "@/providers/auth-provider";
 import Script from "next/script";
 import GoogleAd from "@/components/GoogleAd";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -46,6 +47,7 @@ export default function RootLayout({
         <ModalProvider />
         <I18nProvider>
         <ToastProvider/>
+       
        
         {children}
 

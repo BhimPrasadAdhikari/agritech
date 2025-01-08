@@ -8,7 +8,7 @@ import useWish from '@/hooks/use-wish';
 const WishListPage = () => {
   const wish=useWish();
   return (
-    <div className="bg-white dark:bg-black">
+    <div className="bg-white     ">
       <Container>
         <div className="px-4 py-16 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold text-black">Your Wishes.</h1>

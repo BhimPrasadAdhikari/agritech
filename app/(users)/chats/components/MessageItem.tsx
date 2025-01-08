@@ -143,7 +143,7 @@ const MessageItem = ({
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4 }}
-            className="relative bg-white dark:bg-black p-4 rounded-lg"
+            className="relative bg-white      p-4 rounded-lg"
           >
             <button
               className="absolute top-4 right-2 text-white"
@@ -160,13 +160,13 @@ const MessageItem = ({
             />
             <div className="mt-2 flex justify-between absolute bottom-4 left-6 gap-3">
               <button
-                className="text-white dark:text-blackbg-black p-2 rounded-full"
+                className="text-white     bg-black p-2 rounded-full"
                 onClick={() => window.open(selectedImage)}
               >
                 <Expand />
               </button>
               <button
-                className="text-white dark:text-blackbg-black p-2 rounded-full"
+                className="text-white     bg-black p-2 rounded-full"
                 onClick={async () => {
                   if (selectedImage) {
                     try {

@@ -37,13 +37,13 @@ const AccountManagement = () => {
   }, [session.data?.user.id]);
   return (
     <motion.div
-      className="relative w-full mx-auto lg:flex flex-shrink-0 bg-white-50 min-h-screen dark:bg-black"
+      className="relative w-full mx-auto lg:flex flex-shrink-0 bg-white-50 min-h-screen     "
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
       {/* Sidebar */}
-      <div className=" dark:text-black p-2 dark:bg-black">
+      <div className="      p-2     ">
         <h2 className="text-2xl font-bold mb-6 text-center text-green-500 text-wrap">
           Account Management
         </h2>

@@ -48,7 +48,7 @@ const PlantationForm: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 20 }}
         transition={{ duration: 0.5 }}
-        className="w-full mx-auto p-6 bg-white dark:bg-black rounded-lg shadow-lg mt-10 space-y-6"
+        className="w-full mx-auto p-6 bg-white      rounded-lg shadow-lg mt-10 space-y-6"
       >
         <h2 className="text-3xl font-semibold text-gray-800 mb-6 text-center">Plant a Crop</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -121,7 +121,7 @@ const PlantationForm: React.FC = () => {
 
           <button
             type="submit"
-            className="w-full bg-green-600 text-white dark:text-blackpy-2 rounded-md hover:bg-green-700 transition duration-300"
+            className="w-full bg-green-600 text-white     py-2 rounded-md hover:bg-green-700 transition duration-300"
           >
             Submit Planting Details
           </button>

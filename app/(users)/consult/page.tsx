@@ -112,7 +112,7 @@ const ConsultPage = (props:{searchParams:SearchParams}) => {
               .fill(0)
               .map((_, idx) => (
                 <motion.div
-                  className="bg-white dark:bg-black shadow-lg rounded-lg p-6 w-full h-48 animate-pulse"
+                  className="bg-white      shadow-lg rounded-lg p-6 w-full h-48 animate-pulse"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.5 }}
@@ -151,7 +151,7 @@ const ConsultPage = (props:{searchParams:SearchParams}) => {
                 return (
                   <motion.div
                     key={consultation.id}
-                    className="bg-white dark:bg-black shadow-lg rounded-lg p-6 hover:shadow-2xl transition-shadow"
+                    className="bg-white      shadow-lg rounded-lg p-6 hover:shadow-2xl transition-shadow"
                     whileHover={{ scale: 1.05 }}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -185,7 +185,7 @@ const ConsultPage = (props:{searchParams:SearchParams}) => {
                       <motion.button
                         whileTap={{ scale: 0.95 }}
                         onClick={() => handleConsult(consultation.expert)}
-                        className="mt-4 w-full bg-blue-500 text-white dark:text-blackpy-2 rounded-lg hover:bg-blue-600 transition-colors"
+                        className="mt-4 w-full bg-blue-500 text-white     py-2 rounded-lg hover:bg-blue-600 transition-colors"
                       >
                         Consult Now
                       </motion.button>

@@ -44,7 +44,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
         <div
           className={cn(
             "absolute left-0 bottom-10 mb-2 flex items-center gap-1 flex-wrap h-[50px] w-48 ",
-            value.length > 0 ? "overflow-y-scroll bg-white dark:bg-black" : ""
+            value.length > 0 ? "overflow-y-scroll bg-white     " : ""
           )}
         >
           {value.map((url) => {

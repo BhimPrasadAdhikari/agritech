@@ -334,7 +334,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                           placeholder="select a category"
                         />
                       </SelectTrigger>
-                      <SelectContent className="bg-white dark:bg-black">
+                      <SelectContent className="bg-white     ">
                         {categories.map((item) => (
                           <SelectItem key={item.id} value={item.id}>
                             {item.name}
@@ -369,7 +369,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                           placeholder="select a sub category"
                         />
                       </SelectTrigger>
-                      <SelectContent className="bg-white dark:bg-black">
+                      <SelectContent className="bg-white     ">
                         {subCategories &&
                           subCategories.length > 0 &&
                           subCategories.map((item) => (
@@ -461,7 +461,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                   placeholder={`select ${catSpec.name}`}
                                 />
                               </SelectTrigger>
-                              <SelectContent className="bg-white dark:bg-black">
+                              <SelectContent className="bg-white     ">
                                 {catSpec.values.map((value, index) => (
                                   <SelectItem key={index} value={value}>
                                     {value}

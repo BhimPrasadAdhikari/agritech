@@ -55,7 +55,7 @@ const ProfileSetting = ({ user }: { user: UserType }) => {
         {/* Profile Info */}
         <div className="">
           {/* Profile and Image */}
-          <div className="bg-white dark:bg-black border-b-2 p-4 rounded-lg grid grid-cols-3 items-center">
+          <div className="bg-white      border-b-2 p-4 rounded-lg grid grid-cols-3 items-center">
             <div>
               <h4 className="text-xl font-semibold w-full">Profile</h4>
             </div>
@@ -70,13 +70,13 @@ const ProfileSetting = ({ user }: { user: UserType }) => {
               </div>
               <span>{name}</span>
             </div>
-            <Button className="bg-green-500 text-white dark:text-blackpx-4 py-2 rounded-md hover:bg-green-600">
+            <Button className="bg-green-500 text-white     px-4 py-2 rounded-md hover:bg-green-600">
               Edit Profile
             </Button>
           </div>
 
           {/* Email Addresses */}
-          <div className="bg-white dark:bg-black border-b-2 p-4 rounded-lg grid grid-cols-3 items-center gap-4">
+          <div className="bg-white      border-b-2 p-4 rounded-lg grid grid-cols-3 items-center gap-4">
             <h4 className="text-xl font-semibold">Email Addresses</h4>
             <div className="">
               <ul className="mb-4 w-full">
@@ -90,7 +90,7 @@ const ProfileSetting = ({ user }: { user: UserType }) => {
                 {/* ))} */}
               </ul>
               <Button
-                className="bg-green-500 text-white dark:text-blackpx-4 py-2 rounded-md hover:bg-green-600"
+                className="bg-green-500 text-white     px-4 py-2 rounded-md hover:bg-green-600"
                 onClick={addEmail}
               >
                 + Add Email Address
@@ -99,7 +99,7 @@ const ProfileSetting = ({ user }: { user: UserType }) => {
           </div>
 
           {/* Phone Numbers */}
-          <div className="bg-white dark:bg-black border-b-2 p-4 rounded-lg grid grid-cols-3 items-center gap-4">
+          <div className="bg-white      border-b-2 p-4 rounded-lg grid grid-cols-3 items-center gap-4">
             <h4 className="text-xl font-semibold mb-2">Phone Numbers</h4>
             <div>
               <ul className="mb-4">
@@ -113,7 +113,7 @@ const ProfileSetting = ({ user }: { user: UserType }) => {
                 ))}
               </ul>
               <Button
-                className="bg-green-500 text-white dark:text-blackpx-4 py-2 rounded-md hover:bg-green-600"
+                className="bg-green-500 text-white     px-4 py-2 rounded-md hover:bg-green-600"
                 onClick={addPhoneNumber}
               >
                 + Add Phone Number
@@ -122,7 +122,7 @@ const ProfileSetting = ({ user }: { user: UserType }) => {
           </div>
 
           {/* Connected Accounts */}
-          <div className="bg-white dark:bg-black border-b-2 p-4 rounded-lg grid grid-cols-3 items-center gap-4">
+          <div className="bg-white      border-b-2 p-4 rounded-lg grid grid-cols-3 items-center gap-4">
             <h4 className="text-xl font-semibold mb-2">Connected Accounts</h4>
             <div>
               <ul className="mb-4">
@@ -136,7 +136,7 @@ const ProfileSetting = ({ user }: { user: UserType }) => {
                 ))}
               </ul>
               <Button
-                className="bg-green-500 text-white dark:text-blackpx-4 py-2 rounded-md hover:bg-green-600"
+                className="bg-green-500 text-white     px-4 py-2 rounded-md hover:bg-green-600"
                 onClick={connectAccount}
               >
                 + Connect Account

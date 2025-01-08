@@ -9,7 +9,7 @@ const FloatingButtons = () => {
       <motion.button
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        className="bg-green-600 text-white dark:text-blackp-4 rounded-full shadow-lg focus:outline-none"
+        className="bg-green-600 text-white     p-4 rounded-full shadow-lg focus:outline-none"
         onClick={() => alert("Take Appointment")}
       >
         <FaCalendarAlt className="text-2xl" />
@@ -19,7 +19,7 @@ const FloatingButtons = () => {
       <motion.button
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        className="bg-blue-600 text-white dark:text-blackp-1 rounded-full shadow-lg focus:outline-none"
+        className="bg-blue-600 text-white     p-1 rounded-full shadow-lg focus:outline-none"
         onClick={() => alert("Chat with Expert")}
       >
         <FaUserMd className="" />

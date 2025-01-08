@@ -37,7 +37,7 @@ export default async function DiseasesPage() {
               diseases.map((disease) => (
                 <motion.div
                   key={disease.id}
-                  className="bg-white dark:bg-black shadow-lg rounded-lg p-6 border-l-4 border-green-500"
+                  className="bg-white      shadow-lg rounded-lg p-6 border-l-4 border-green-500"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5 }}

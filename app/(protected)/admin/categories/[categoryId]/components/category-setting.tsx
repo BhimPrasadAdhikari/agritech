@@ -154,7 +154,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({billboards, initialDa
                     <SelectTrigger className="w-[180px]">
                       <SelectValue defaultValue={field.value} placeholder='select a billboard' />
                     </SelectTrigger>
-                    <SelectContent className='bg-white dark:bg-black'>
+                    <SelectContent className='bg-white     '>
                       {billboards.map((billboard)=>(
                       <SelectItem key={billboard.id} value={billboard.id}>
                         {billboard.label}

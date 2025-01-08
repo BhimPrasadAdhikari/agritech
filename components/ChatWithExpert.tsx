@@ -78,7 +78,7 @@ const ChatWithExpert: React.FC<ChatWithExpertProps> = ({
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="max-w-3xl mx-auto p-4 bg-white dark:bg-black shadow-md rounded-lg"
+      className="max-w-3xl mx-auto p-4 bg-white      shadow-md rounded-lg"
     >
       <div className="flex items-center mb-4">
         <div className="relative w-16 h-16">
@@ -113,7 +113,7 @@ const ChatWithExpert: React.FC<ChatWithExpertProps> = ({
               initial={{ x: msg.sender === "user" ? 50 : -50, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.5 }}
-              className={`p-2 rounded-lg text-white dark:text-black${
+              className={`p-2 rounded-lg text-white     ${
                 msg.sender === "user" ? "bg-black" : "bg-green-900"
               }`}
             >
@@ -229,7 +229,7 @@ const ChatWithExpert: React.FC<ChatWithExpertProps> = ({
 
         <button
           onClick={sendMessage}
-          className={`bg-blue-500 text-white dark:text-blackp-2 rounded-r-lg hover:bg-blue-600 transition duration-300 ${
+          className={`bg-blue-500 text-white     p-2 rounded-r-lg hover:bg-blue-600 transition duration-300 ${
             loading ? "opacity-50 cursor-not-allowed" : ""
           }`}
           disabled={loading}
@@ -253,7 +253,7 @@ const ChatWithExpert: React.FC<ChatWithExpertProps> = ({
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4 }}
-            className="relative bg-white dark:bg-black p-4 rounded-lg"
+            className="relative bg-white      p-4 rounded-lg"
           >
             <button
               className="absolute top-4 right-2 text-white"
@@ -270,13 +270,13 @@ const ChatWithExpert: React.FC<ChatWithExpertProps> = ({
             />
             <div className="mt-2 flex justify-between absolute bottom-4 left-6 gap-3">
               <button
-                className="text-white dark:text-blackbg-black p-2 rounded-full"
+                className="text-white     bg-black p-2 rounded-full"
                 onClick={() => window.open(selectedImage)}
               >
                 <Expand />
               </button>
               <button
-                className="text-white dark:text-blackbg-black p-2 rounded-full"
+                className="text-white     bg-black p-2 rounded-full"
                 onClick={async () => {
                   if (selectedImage) {
                     try {

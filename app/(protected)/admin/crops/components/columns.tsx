@@ -35,7 +35,7 @@ export const columns: ColumnDef<CropColumn>[] = [
           {diseases.map((disease, index) => (
             <div
               key={index}
-              className="flex flex-col gap-y-2 p-4 bg-white dark:bg-black rounded-md shadow-sm"
+              className="flex flex-col gap-y-2 p-4 bg-white      rounded-md shadow-sm"
             >
               <strong className="text-green-900 text-lg">
                 <FaLeaf className="inline-block text-green-500 mr-1" />

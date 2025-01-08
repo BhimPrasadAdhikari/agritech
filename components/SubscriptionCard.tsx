@@ -84,7 +84,7 @@ const SubscriptionCard: React.FC<SubscriptionCardProps> = ({
   };
 console.log(subscriptionStore.subscription);
   return (
-    <div className="border border-green-300 shadow-md p-6 rounded-lg text-center bg-white dark:bg-black hover:shadow-lg transform transition-transform hover:scale-105">
+    <div className="border border-green-300 shadow-md p-6 rounded-lg text-center bg-white      hover:shadow-lg transform transition-transform hover:scale-105">
       <h3 className="text-2xl font-bold text-green-600 mb-4">{plan}</h3>
       <div className="text-4xl font-bold text-green-700 mb-4">
         ${price}
@@ -100,7 +100,7 @@ console.log(subscriptionStore.subscription);
       </ul>
       <button
         className={cn(
-          "bg-green-600 text-white dark:text-blackpy-2 px-6 rounded-full hover:bg-green-700 disabled:cursor-not-allowed",
+          "bg-green-600 text-white     py-2 px-6 rounded-full hover:bg-green-700 disabled:cursor-not-allowed",
           showButton && "hidden"
         )}
         onClick={onClickHandler}

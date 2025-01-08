@@ -64,7 +64,7 @@ const ExpertApplicationForm = () => {
   };
 
   return (
-    <div className="w-full mx-auto p-6 bg-white dark:bg-black rounded-lg">
+    <div className="w-full mx-auto p-6 bg-white      rounded-lg">
       <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
         Apply to be an Expert
       </h2>
@@ -253,7 +253,7 @@ const ExpertApplicationForm = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full py-2 px-4 bg-blue-600 text-white dark:text-blackrounded-md hover:bg-blue-700 transition"
+            className="w-full py-2 px-4 bg-blue-600 text-white     rounded-md hover:bg-blue-700 transition"
           >
             Submit Application
           </button>

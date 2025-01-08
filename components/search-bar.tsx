@@ -93,12 +93,12 @@ const SearchBar = () => {
           value={query}
           onChange={handleInputChange} // Correctly update search term
           placeholder={t("search")}
-          className="border border-gray-300 rounded-l-md px-4 py-2  bg-white dark:bg-black"
+          className="border border-gray-300 rounded-l-md px-4 py-2  bg-white     "
         />
 
         <button
           onClick={handleSearch}
-          className="bg-green-500 text-white dark:text-blackrounded-r-md px-4 py-2 flex items-center" // Green background for button
+          className="bg-green-500 text-white     rounded-r-md px-4 py-2 flex items-center" // Green background for button
         >
           <SearchIcon className="w-5 h-5" />
         </button>
@@ -108,7 +108,7 @@ const SearchBar = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className="absolute top-10 mt-2 w-full bg-white dark:bg-black border border-gray-300 rounded-md shadow-lg"
+          className="absolute top-10 mt-2 w-full bg-white      border border-gray-300 rounded-md shadow-lg"
         >
           {filteredSuggestions.map((suggestion, index) => (
             <motion.li

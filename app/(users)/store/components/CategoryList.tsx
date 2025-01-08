@@ -18,7 +18,7 @@ const CategoryList: React.FC<CategoryListProps> = ({ categories,setFilter }) => 
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
 
   return (
-    <nav className="bg-white dark:bg-black shadow-md">
+    <nav className="bg-white      shadow-md">
       <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
         <ul className="flex space-x-4">
           {categories?.map((category) => (
@@ -33,7 +33,7 @@ const CategoryList: React.FC<CategoryListProps> = ({ categories,setFilter }) => 
               {hoveredCategory === category.id && (
                 <div
                 onMouseLeave={()=>setHoveredCategory(null)}
-                 className="absolute left-0 mt-2 z-50 bg-white dark:bg-black shadow-lg rounded-md transition-opacity duration-300 opacity-100">
+                 className="absolute left-0 mt-2 z-50 bg-white      shadow-lg rounded-md transition-opacity duration-300 opacity-100">
                   {category.subCategories.map((sub) => (
                     <Button
                       key={sub.id}

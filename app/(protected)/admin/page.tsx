@@ -71,7 +71,7 @@ const DashboardPage = () => {
           transition={{ duration: 0.6 }}
         >
           {[...Array(3)].map((_, i) => (
-            <Card key={i} className="bg-white dark:bg-black bg-opacity-10 shadow-lg rounded-lg">
+            <Card key={i} className="bg-white      bg-opacity-10 shadow-lg rounded-lg">
               <CardHeader>
                 <CardTitle className="text-white">Loading...</CardTitle>
               </CardHeader>
@@ -87,7 +87,7 @@ const DashboardPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <Card className="bg-white dark:bg-black bg-opacity-20 shadow-lg rounded-lg p-4">
+          <Card className="bg-white      bg-opacity-20 shadow-lg rounded-lg p-4">
             <CardHeader>
               <CardTitle className="text-white">Loading Sales by Category...</CardTitle>
             </CardHeader>
@@ -102,7 +102,7 @@ const DashboardPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <Card className="bg-white dark:bg-black bg-opacity-20 shadow-lg rounded-lg p-4">
+          <Card className="bg-white      bg-opacity-20 shadow-lg rounded-lg p-4">
             <CardHeader>
               <CardTitle className="text-white">Loading Product Performance...</CardTitle>
             </CardHeader>
@@ -123,7 +123,7 @@ const DashboardPage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <Card className="bg-white dark:bg-black bg-opacity-10 shadow-lg hover:shadow-2xl transition-shadow rounded-lg">
+        <Card className="bg-white      bg-opacity-10 shadow-lg hover:shadow-2xl transition-shadow rounded-lg">
           <CardHeader>
             <CardTitle className="text-white">Total Revenue</CardTitle>
           </CardHeader>
@@ -132,7 +132,7 @@ const DashboardPage = () => {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-black bg-opacity-10 shadow-lg hover:shadow-2xl transition-shadow rounded-lg">
+        <Card className="bg-white      bg-opacity-10 shadow-lg hover:shadow-2xl transition-shadow rounded-lg">
           <CardHeader>
             <CardTitle className="text-white">Number of Orders</CardTitle>
           </CardHeader>
@@ -141,7 +141,7 @@ const DashboardPage = () => {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-black bg-opacity-10 shadow-lg hover:shadow-2xl transition-shadow rounded-lg">
+        <Card className="bg-white      bg-opacity-10 shadow-lg hover:shadow-2xl transition-shadow rounded-lg">
           <CardHeader>
             <CardTitle className="text-white">Average Order Value</CardTitle>
           </CardHeader>
@@ -157,7 +157,7 @@ const DashboardPage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        <Card className="bg-white dark:bg-black bg-opacity-20 shadow-lg hover:shadow-2xl transition-shadow rounded-lg p-4">
+        <Card className="bg-white      bg-opacity-20 shadow-lg hover:shadow-2xl transition-shadow rounded-lg p-4">
           <CardHeader>
             <CardTitle className="text-white">Sales by Category</CardTitle>
           </CardHeader>
@@ -173,12 +173,12 @@ const DashboardPage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.4 }}
       >
-        <Card className="bg-white dark:bg-black bg-opacity-20 shadow-lg hover:shadow-2xl transition-shadow rounded-lg p-4">
+        <Card className="bg-white      bg-opacity-20 shadow-lg hover:shadow-2xl transition-shadow rounded-lg p-4">
           <CardHeader>
             <CardTitle className="text-white">Product Performance</CardTitle>
           </CardHeader>
           <CardContent>
-            <table className="min-w-full text-white dark:text-blackbg-opacity-10 border-separate border-spacing-0 rounded-lg">
+            <table className="min-w-full text-white     bg-opacity-10 border-separate border-spacing-0 rounded-lg">
               <thead>
                 <tr>
                   <th className="py-3 text-left font-semibold">Product Name</th>
@@ -187,7 +187,7 @@ const DashboardPage = () => {
               </thead>
               <tbody>
                 {metrics?.productPerformance.map((product) => (
-                  <tr key={product.name} className="odd:bg-white odd:bg-opacity-10 even:bg-white dark:bg-black even:bg-opacity-5">
+                  <tr key={product.name} className="odd:bg-white odd:bg-opacity-10 even:bg-white      even:bg-opacity-5">
                     <td className="py-2 px-4">{product.name}</td>
                     <td className="py-2 px-4">{product.sales || 0}</td>
                   </tr>

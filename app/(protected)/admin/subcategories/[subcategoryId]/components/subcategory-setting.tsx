@@ -155,7 +155,7 @@ export const SubCategoryForm: React.FC<SubCategoryFormProps> = ({categories, ini
                     <SelectTrigger className="w-[180px]">
                       <SelectValue defaultValue={field.value} placeholder='select a category' />
                     </SelectTrigger>
-                    <SelectContent className='bg-white dark:bg-black'>
+                    <SelectContent className='bg-white     '>
                       {categories && categories.map((category)=>(
                       <SelectItem key={category.id} value={category.id}>
                         {category.name}

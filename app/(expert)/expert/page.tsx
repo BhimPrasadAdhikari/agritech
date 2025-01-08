@@ -64,7 +64,7 @@ const ExpertDashboardPage = () => {
           transition={{ duration: 0.6 }}
         >
           {[...Array(3)].map((_, i) => (
-            <Card key={i} className="bg-white dark:bg-black bg-opacity-10 shadow-lg rounded-lg">
+            <Card key={i} className="bg-white      bg-opacity-10 shadow-lg rounded-lg">
               <CardHeader>
                 <CardTitle className="text-white">Loading...</CardTitle>
               </CardHeader>
@@ -87,7 +87,7 @@ const ExpertDashboardPage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <Card className="bg-white dark:bg-black bg-opacity-10 shadow-lg hover:shadow-2xl transition-shadow rounded-lg">
+        <Card className="bg-white      bg-opacity-10 shadow-lg hover:shadow-2xl transition-shadow rounded-lg">
           <CardHeader>
             <CardTitle className="text-white">{t("Total Revenue")}</CardTitle>
           </CardHeader>
@@ -96,7 +96,7 @@ const ExpertDashboardPage = () => {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-black bg-opacity-10 shadow-lg hover:shadow-2xl transition-shadow rounded-lg">
+        <Card className="bg-white      bg-opacity-10 shadow-lg hover:shadow-2xl transition-shadow rounded-lg">
           <CardHeader>
             <CardTitle className="text-white">{t('Total Consultations')}</CardTitle>
           </CardHeader>
@@ -105,7 +105,7 @@ const ExpertDashboardPage = () => {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-black bg-opacity-10 shadow-lg hover:shadow-2xl transition-shadow rounded-lg">
+        <Card className="bg-white      bg-opacity-10 shadow-lg hover:shadow-2xl transition-shadow rounded-lg">
           <CardHeader>
             <CardTitle className="text-white">{t("Average Consultation Fee")}</CardTitle>
           </CardHeader>
@@ -122,7 +122,7 @@ const ExpertDashboardPage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        <Card className="bg-white dark:bg-black bg-opacity-10 shadow-lg hover:shadow-2xl transition-shadow rounded-lg">
+        <Card className="bg-white      bg-opacity-10 shadow-lg hover:shadow-2xl transition-shadow rounded-lg">
           <CardHeader>
             <CardTitle className="text-white">{t("Commission")}</CardTitle>
           </CardHeader>
@@ -131,7 +131,7 @@ const ExpertDashboardPage = () => {
           </CardContent>
         </Card>
 
-        <Card className="bg-white dark:bg-black bg-opacity-10 shadow-lg hover:shadow-2xl transition-shadow rounded-lg">
+        <Card className="bg-white      bg-opacity-10 shadow-lg hover:shadow-2xl transition-shadow rounded-lg">
           <CardHeader>
             <CardTitle className="text-white">{t("Net Revenue")}</CardTitle>
           </CardHeader>

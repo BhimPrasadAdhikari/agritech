@@ -38,7 +38,7 @@ const EndConsultationButton: React.FC<ConsultationProps> = ({
       <button
         onClick={handleEndConsultation}
         disabled={loading}
-        className="bg-red-500 text-white dark:text-blackpx-4 py-2 rounded"
+        className="bg-red-500 text-white     px-4 py-2 rounded"
       >
         {loading ? "Ending..." : "End Consultation"}
       </button>

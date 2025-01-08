@@ -31,7 +31,7 @@ const MobileCategoryList: React.FC<MobileCategoryListProps> = ({ categories, set
             {category.name}
           </Button>
           {activeCategory === category.id && (
-            <div className="mt-1 pl-4 absolute bg-white dark:bg-black z-50">
+            <div className="mt-1 pl-4 absolute bg-white      z-50">
               {category.subCategories.map((sub) => (
                 <Button
                   key={sub.id}

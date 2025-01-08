@@ -31,7 +31,7 @@ const Routes: React.FC<RoutesProps> = ({ data }) => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className="absolute z-50 border bg-white dark:bg-black shadow-md rounded"
+          className="absolute z-50 border bg-white      shadow-md rounded"
         >
           {showDropdown &&
             routes.map((route) => (
@@ -67,7 +67,7 @@ const Routes: React.FC<RoutesProps> = ({ data }) => {
                   className={cn(
                     "text-gray-700 flex hover:text-green-600",
                     route.active
-                      ? "text-green-600 dark:text-white"
+                      ? "text-green-600 "
                       : "text-gray-500"
                   )}
                 >

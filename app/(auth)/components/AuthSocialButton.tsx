@@ -17,7 +17,7 @@ const AuthSocialButton:React.FC<AuthSocialButtonProps> = ({
     disabled={disabled}
     variant='outline'
     onClick={onClick}
-    className='rounded-md inline-flex w-full justify-center bg-green-600 text-white dark:text-blackhover:bg-green-500'>
+    className='rounded-md inline-flex w-full justify-center bg-green-600 text-white     hover:bg-green-500'>
         <Icon />
     </Button>
   )

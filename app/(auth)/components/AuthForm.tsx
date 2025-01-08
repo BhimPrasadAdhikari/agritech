@@ -93,7 +93,7 @@ const AuthForm = () => {
         transition={{ duration: 0.5 }}
       >
         <motion.div
-          className="border p-5 shadow-lg rounded-md bg-white dark:bg-black z-10 w-full max-w-md"
+          className="border p-5 shadow-lg rounded-md bg-white  z-10 w-full max-w-md"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}

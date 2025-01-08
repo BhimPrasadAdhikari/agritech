@@ -57,7 +57,7 @@ const CellAction: React.FC<CellActionProps> = ({data}) => {
     <MoreHorizontal/>
 </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className='z-30 bg-white dark:bg-black '>
+        <DropdownMenuContent className='z-30 bg-white      '>
             <DropdownMenuLabel>
                 Actions
             </DropdownMenuLabel>

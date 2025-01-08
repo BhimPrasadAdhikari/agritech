@@ -11,7 +11,7 @@ interface CropCardProps {
 const CropCard: React.FC<CropCardProps> = ({ crop }) => (
   <Link href={`/crops/${encodeURIComponent(crop.name)}`}>
     <motion.div
-      className="bg-white dark:bg-black shadow-lg p-4 rounded-lg"
+      className="bg-white      shadow-lg p-4 rounded-lg"
       whileHover={{ scale: 1.05 }}
       transition={{ type: "spring", stiffness: 300 }}
     >

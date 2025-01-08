@@ -115,7 +115,7 @@ const OfferForm = ({
                     <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder="choose product Name" />
                     </SelectTrigger>
-                    <SelectContent className="bg-white dark:bg-black">
+                    <SelectContent className="bg-white     ">
                       {products?.map((product) => (
                         <SelectItem
                           key={product?.id}

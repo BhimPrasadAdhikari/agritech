@@ -58,7 +58,7 @@ export const ShipingForm: React.FC = () => {
 
   return (
     <>
-      <div className="flex flex-col dark:bg-black ">
+      <div className="flex flex-col      ">
         <div className="flex items-center justify-between">
           <Heading
             title="Shipping Details"

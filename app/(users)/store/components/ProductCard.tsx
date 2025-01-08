@@ -60,12 +60,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <motion.div
-      className="w-60 relative group bg-white dark:bg-black border rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+      className="w-60 relative group bg-white      border rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer"
       whileHover={{ scale: 1.05 }}
       onClick={() => alert(`Clicked on ${product.name}`)} // Replace with navigation logic
     >
       {product.discount > 0 && (
-        <div className="absolute top-0 left-0 z-30 bg-red-500 text-white dark:text-blackpx-2 py-1 text-sm font-bold">
+        <div className="absolute top-0 left-0 z-30 bg-red-500 text-white     px-2 py-1 text-sm font-bold">
           {formattedDiscount}%
         </div>
       )}

@@ -71,7 +71,7 @@ const CreateAnnouncement = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white dark:bg-black rounded-lg shadow-md">
+    <div className="max-w-2xl mx-auto p-6 bg-white      rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">Create Announcement/Promotion</h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -146,7 +146,7 @@ const CreateAnnouncement = () => {
           disabled={loading}
           whileTap={{ scale: 0.95 }}
           type="submit"
-          className="w-full py-2 px-4 bg-blue-600 text-white dark:text-blackrounded-md hover:bg-blue-700 transition disabled:cursor-not-allowed"
+          className="w-full py-2 px-4 bg-blue-600 text-white     rounded-md hover:bg-blue-700 transition disabled:cursor-not-allowed"
         >
           Create Announcement
         </motion.button>

@@ -66,7 +66,7 @@ const ExpertConsultPayment = ({ expert }: { expert:  User & { image: ImageType |
           <motion.div
             key={expert.id}
             whileHover={{ scale: 1.05 }}
-            className="bg-white dark:bg-black  p-6 flex flex-col items-center"
+            className="bg-white       p-6 flex flex-col items-center"
           >
             {/* Pop out image effect */}
             {/* Image Pop Out effect */}
