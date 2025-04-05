@@ -42,26 +42,26 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
   try {
-    const body = await req.json();
-    const { name, billboardId } = body;
-    const session = await getServerSession(authOptions);
-    const user = await prismadb.user.findUnique({
-      where: {
-        email: session?.user.email as string,
-      },
-    });
-    const userId = session?.user.id || user?.id;
+    // const body = await req.json();
+    // const { name, billboardId } = body;
+    // const session = await getServerSession(authOptions);
+    // const user = await prismadb.user.findUnique({
+    //   where: {
+    //     email: session?.user.email as string,
+    //   },
+    // });
+    // const userId = session?.user.id || user?.id;
 
-    if (!userId) {
-      return new NextResponse("unauthorized", { status: 401 });
-    }
+    // if (!userId) {
+    //   return new NextResponse("unauthorized", { status: 401 });
+    // }
 
-    if (!name) {
-      return new NextResponse("name is required", { status: 400 });
-    }
-    if (!billboardId) {
-      return new NextResponse("billboard must be selected", { status: 400 });
-    }
+    // if (!name) {
+    //   return new NextResponse("name is required", { status: 400 });
+    // }
+    // if (!billboardId) {
+    //   return new NextResponse("billboard must be selected", { status: 400 });
+    // }
 
     const categories = await prismadb.category.findMany();
 

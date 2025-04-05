@@ -96,52 +96,53 @@ export async function POST(req: Request) {
 // GET request to retrieve products
 export async function GET(req: Request) {
   try {
-    const session = await getServerSession(authOptions);
-    const user = await prismadb.user.findUnique({
-      where: {
-        email: session?.user.email as string,
-      },
-    });
-    const userId = session?.user.id || user?.id;
+    // const session = await getServerSession(authOptions);
+    // const user = await prismadb.user.findUnique({
+    //   where: {
+    //     email: session?.user.email as string,
+    //   },
+    // });
+    // const userId = session?.user.id || user?.id;
 
-    if (!userId) {
-      return new NextResponse("unauthorized", { status: 401 });
-    }
-    const { searchParams } = new URL(req.url);
-    const categoryId = searchParams.get("categoryId") || undefined;
-    const subCategoryId = searchParams.get("subCategoryId") || undefined;
-    const isFeatured = searchParams.get("isFeatured");
-    const min_price = Number(searchParams.get("min_price")) || undefined;
-    const max_price = Number(searchParams.get("max_price")) || undefined;
-    const min_discount = Number(searchParams.get("min_discount")) || undefined;
-    const max_discount = Number(searchParams.get("max_discount")) || undefined;
+    // if (!userId) {
+    //   return new NextResponse("unauthorized", { status: 401 });
+    // }
+    // const { searchParams } = new URL(req.url);
+    // const categoryId = searchParams.get("categoryId") || undefined;
+    // const subCategoryId = searchParams.get("subCategoryId") || undefined;
+    // const isFeatured = searchParams.get("isFeatured");
+    // const min_price = Number(searchParams.get("min_price")) || undefined;
+    // const max_price = Number(searchParams.get("max_price")) || undefined;
+    // const min_discount = Number(searchParams.get("min_discount")) || undefined;
+    // const max_discount = Number(searchParams.get("max_discount")) || undefined;
 
-    const products = await prismadb.product.findMany({
-      where: {
-        categoryId,
-        subCategoryId,
-        isFeatured: isFeatured ? true : undefined,
-        isArchived: false,
-        price: {
-          gte: min_price,
-          lte: max_price,
-        },
-        discount: {
-          gte: min_discount,
-          lte: max_discount,
-        },
-      },
-      include: {
-        category: true,
-        images: true,
-        Ratings: true,
-        subCategory:true,
-        productSpecification: true,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+    const products = await prismadb.product.findMany(
+      
+      // where: {
+      //   categoryId,
+      //   subCategoryId,
+      //   isFeatured: isFeatured ? true : undefined,
+      //   isArchived: false,
+      //   price: {
+      //     gte: min_price,
+      //     lte: max_price,
+      //   },
+      //   discount: {S
+      //     gte: min_discount,
+      //     lte: max_discount,
+      //   },
+      // },
+      // include: {
+      //   category: true,
+      //   images: true,
+      //   Ratings: true,
+      //   subCategory:true,
+      //   productSpecification: true,
+      // },
+      // orderBy: {
+      //   createdAt: "desc",
+      // },
+    );
 
     return NextResponse.json(products);
   } catch (error) {
@@ -149,3 +150,4 @@ export async function GET(req: Request) {
     return NextResponse.json("Internal Error", { status: 500 });
   }
 }
+
