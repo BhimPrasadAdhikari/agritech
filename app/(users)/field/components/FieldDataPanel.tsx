@@ -6,7 +6,7 @@ import axios from "axios";
 import Image from "next/image";
 import StatsDisplay from "./StatsDisplay";
 // Get the Unix timestamp for January 1, 2024
-const startDate = Math.floor(new Date("2024-10-30").getTime() / 1000);
+const startDate = Math.floor(new Date("2020-10-30").getTime() / 1000);
 
 // Get the current date as Unix timestamp
 const endDate = Math.floor(Date.now() / 1000);

@@ -13,14 +13,14 @@ const NewsFeed = () => {
 
   useEffect(() => {
     const fetchNews = async () => {
-        const url = 'https://newsapi.org/v2/everything?' +
-            'q=%2Bagriculture%20AND%20(crops%20OR%20farming%20OR%20harvest)&' +
-            'searchIn=title,description&' +
-            'from=2024-11-02&' +  // Adjust the date as needed
-            'sortBy=relevancy&' +
-            'language=en&' +
-            'pageSize=10&' + // Limit results per page for manageability
-            'apiKey=6ae260c8c3e64d4b93811a0c7df11625'; // Replace with your actual API key
+      const url ="https://newsapi.org/v2/everything?q=agriculture&from=2025-03-05&sortBy=publishedAt&apiKey=6ae260c8c3e64d4b93811a0c7df11625"
+        // const url = 'https://newsapi.org/v2/everything?' +
+        //     'q=agriculture' +
+        //     'searchIn=title,description&' +
+        //     'from=2020-11-02&' +  // Adjust the date as needed
+        //     'language=en&' +
+        //     'pageSize=10&' + // Limit results per page for manageability
+        //     'apiKey=6ae260c8c3e64d4b93811a0c7df11625'; // Replace with your actual API key
 
       try {
         const response = await fetch(url);

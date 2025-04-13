@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // app/api/satellite-images/route.ts
-export const dynamic = 'force-static'
+// export const dynamic = 'force-static'
 
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
@@ -20,13 +20,13 @@ export async function GET(req: NextRequest) {
 
     // Step 1: Fetch satellite images data
     const satelliteResponse = await axios.get(
-      `https://api.agromonitoring.com/agro/1.0/image/search?start=${start}&end=${end}&polyid=${polyid}&appid=${AGRO_APP_ID}`
+      `https://api.agromonitoring.com/agro/1.0/image/search?start=1604016000&end=1743863437&polyid=6724b42d6352a36d382cf17b&appid=406dfb054d42ae054494295e880c5767`
     );
-
-    console.log(satelliteResponse.data)
+     console.log(satelliteResponse);
+    // console.log(satelliteResponse.data)
 
     const satelliteData = satelliteResponse.data;
-
+      console.log('satelliteData',satelliteData)
     // Step 2: Fetch image URLs and stats data for each satellite image
     const imageDataPromises = satelliteData.map(async (item: any, index: number) => {
       const imageFeatures = await Promise.all(
@@ -34,7 +34,7 @@ export async function GET(req: NextRequest) {
           try {
             return { feature, url: url };    
   
-          } catch (error) { 
+          } catch (error:any) { 
             console.error(`Error fetching ${feature} image`, error);
             return null;
           }
@@ -65,7 +65,6 @@ export async function GET(req: NextRequest) {
      console.log('imageData',imageData)
     return NextResponse.json(imageData);
   } catch (error) {
-    console.error("Error fetching satellite images and data:", error);
     return NextResponse.json({ error: "Failed to fetch satellite images and data" }, { status: 500 });
   }
 }

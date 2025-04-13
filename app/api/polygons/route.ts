@@ -16,7 +16,7 @@ export async function GET() {
         area: field.area,
       }));
   
-    
+    console.log(filteredData)
     return NextResponse.json(filteredData);
   } catch (error) {
     console.error("Error fetching polygons:", error);
