@@ -7,7 +7,14 @@ const nextConfig = {
         "api.agromonitoring.com",
     ]
 },
-  };
+  // webpack: (config) => {
+  //   config.module.rules.push({
+  //     test: /\.css$/,
+  //     use: ['style-loader', 'css-loader'],
+  //   });
+  //   return config;
+  // },
+};
   
-  export default nextConfig;
+export default nextConfig;
   

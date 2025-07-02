@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=mongodb+srv://Radha-collection:${MONGODB_PASSWORD}@cluster0.eirr4os.mongodb.net/agritech?retryWrites=true&w=majority
+      - NEXTAUTH_URL=http://localhost:3000
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - FACEBOOK_CLIENT_ID=${FACEBOOK_CLIENT_ID}
+      - FACEBOOK_CLIENT_SECRET=${FACEBOOK_CLIENT_SECRET}
+      - PUSHER_APP_ID=${PUSHER_APP_ID}
+      - PUSHER_SECRET=${PUSHER_SECRET}
+      - NEXT_PUBLIC_PUSHER_KEY=${NEXT_PUBLIC_PUSHER_KEY}
+      - NEXT_PUBLIC_PUSHER_CLUSTER=${NEXT_PUBLIC_PUSHER_CLUSTER}
+      - SMTP_USER=${SMTP_USER}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - NEXT_PUBLIC_STORE_URL=${NEXT_PUBLIC_STORE_URL}
+      - KHALTI_SECRET_KEY=${KHALTI_SECRET_KEY}
+      - KHALTI_MERCHANT_USERNAME=${KHALTI_MERCHANT_USERNAME}
+      - KHALTI_MERCHANT_EMAIL=${KHALTI_MERCHANT_EMAIL}
+      - KHALTI_PAYMENT_API=${KHALTI_PAYMENT_API}
+      - AGRO_APP_ID=${AGRO_APP_ID}
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    depends_on:
+      - mongodb
+    networks:
+      - agritech-network 
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=agritech
+    networks:
+      - agritech-network 
+
+
+networks:
+  agritech-network:
+    driver: bridge
+volumes:
+  mongodb_data:
+

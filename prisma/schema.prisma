@@ -61,6 +61,7 @@ model User {
   farmerConsultations Consultation[]     @relation("FarmerToConsultation")
   appointments        Appointment[]      @relation("UserAppointments")
   expertAppointments  Appointment[]      @relation("ExpertAppointments")
+  fields Field[]
 }
 
 model Account {
@@ -346,5 +347,37 @@ model Rating {
   product   Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
   rating    Int
   userEmail String
+  createdAt DateTime @default(now())
+}
+
+model Field {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  area        Float
+  coordinates Json      // Store polygon coordinates
+  userId      String    @db.ObjectId
+  user        User      @relation(fields: [userId], references: [id])
+  cropType    String?
+  soilType    String?
+  lastIrrigation DateTime?
+  lastFertilization DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Field monitoring data
+  ndviData    Json?     // Store NDVI data
+  soilMoisture Float?
+  weatherData Json?     // Store weather data
+  alerts      Alert[]   // Relation to alerts
+}
+
+model Alert {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  fieldId   String   @db.ObjectId
+  field     Field    @relation(fields: [fieldId], references: [id])
+  type      String   // e.g., "irrigation", "fertilization", "disease"
+  message   String
+  severity  String   // "low", "medium", "high"
+  isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
 }

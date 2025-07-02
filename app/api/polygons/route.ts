@@ -3,23 +3,35 @@
 export const dynamic = 'force-static'
 
 import { NextResponse } from "next/server";
-import axios from "axios";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/authOptions";
+import { AgromonitoringService } from "@/lib/agromonitoring";
 
 export async function GET() {
   try {
-    const { AGRO_APP_ID } = process.env;
-    const response = await axios.get(`https://api.agromonitoring.com/agro/1.0/polygons?appid=${AGRO_APP_ID}`);
-    // Selectively return only required fields, excluding app_id
-    const filteredData = response.data.map((field: any) => ({
-        id: field.id,
-        name: field.name,
-        area: field.area,
-      }));
-  
-    console.log(filteredData)
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.email) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    const agromonitoring = AgromonitoringService.getInstance();
+    const polygons = await agromonitoring.getPolygons();
+
+    // Filter and transform the data
+    const filteredData = polygons.map((field: any) => ({
+      id: field.id,
+      name: field.name,
+      area: field.area,
+      center: field.center,
+      geo_json: field.geo_json
+    }));
+
     return NextResponse.json(filteredData);
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error fetching polygons:", error);
-    return NextResponse.json({ error: "Failed to fetch polygons" }, { status: 500 });
+    return new NextResponse(
+      error.message || "Internal Server Error",
+      { status: error.response?.status || 500 }
+    );
   }
 }

@@ -1,33 +1,31 @@
-import { PrismaClient } from "@prisma/client";
-// Create a new PrismaClient instance
-const globalForPrisma = global as typeof globalThis & { prisma?: PrismaClient };
+import { PrismaClient } from '@prisma/client'
 
-const createPrismaClient = () => {
-  const client = new PrismaClient({
-    log: process.env.NODE_ENV === "development" ? ["query", "info", "warn", "error"] : ["error"],
-  });
+const prismaClientSingleton = () => {
+  return new PrismaClient({
+    datasources: {
+      db: {
+        url: process.env.DATABASE_URL
+      }
+    },
+    log: ['query', 'error', 'warn']
+  })
+}
 
-  // Handle connection errors
-  client.$connect().catch((error) => {
-    console.error("Failed to connect to the database:", error);
-    process.exit(1); // Exit the process with an error code
-  });
+declare global {
+  var prisma: undefined | ReturnType<typeof prismaClientSingleton>
+}
 
-  return client;
-};
+const client = globalThis.prisma ?? prismaClientSingleton()
 
-// Reuse the existing PrismaClient instance or create a new one
-const prismadb = globalForPrisma.prisma || createPrismaClient();
-
-if (process.env.NODE_ENV !== "production") {
-  globalForPrisma.prisma = prismadb;
+if (process.env.NODE_ENV !== 'production') {
+  globalThis.prisma = client
 }
 
 // Gracefully close the database connection on exit
 process.on("SIGINT", async () => {
-  await prismadb.$disconnect();
+  await client.$disconnect();
   console.log("Disconnected from the database");
   process.exit(0);
 });
 
-export default prismadb;
+export default client
